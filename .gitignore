@@ -10,3 +10,8 @@
 log/
 target/
 
+#IntelliJ (Idea Enterprise Edition)
+.iml
+.idea/
+
+

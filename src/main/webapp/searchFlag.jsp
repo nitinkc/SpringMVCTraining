@@ -40,6 +40,7 @@
 						Country
 					</label>
 					<div class="col-sm-10">
+						<!-- Should be name="country" not id!! -->
 						<input type="text" class="form-control" name="country" />
 					</div>
 				</div>
