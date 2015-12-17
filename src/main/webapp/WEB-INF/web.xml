@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	
+	<!-- ApplicationContext applicationContext = new ClassPathXmlApplicationContext("/WEB-INF/applicationContext.xml"); -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+<!-- 
+Here we are configuring the front controller
+ -->
+	<servlet>
+		<servlet-name>flags</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- WHAT IS THIS FOR????? -->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+    <!-- This is end url mapping -->
+	<servlet-mapping>
+		<servlet-name>flags</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+
+</web-app>
