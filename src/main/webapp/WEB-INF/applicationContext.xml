@@ -11,5 +11,8 @@
 
 	<!-- This is scanning the package where your controller resides -->
 	<context:component-scan base-package="com.flags.service" />
+
+	<!-- For creating the object of the @Repository class IPersonDao  -->
+	<context:component-scan base-package="com.persons.dao.implement" />
 	 
 	</beans>
