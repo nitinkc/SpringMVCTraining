@@ -1,6 +1,6 @@
 package com.persons.service.implementation;
 
-import com.persons.dao.PersonDao;
+import com.persons.dao.PersonsDao;
 import com.persons.dao.entity.PersonsDataEntity;
 import com.persons.model.controller.PersonsFormData;
 import com.persons.service.PersonService;
@@ -18,7 +18,8 @@ public class IPersonService implements PersonService {
 
     @Autowired
     @Qualifier("IPersonDao")
-    private PersonDao pd;
+    private PersonsDao pd;
+    
     @Override
     public String addPerson(PersonsFormData personsFormData) {
         PersonsDataEntity entity = new PersonsDataEntity();

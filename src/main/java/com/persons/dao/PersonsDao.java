@@ -7,6 +7,7 @@ import com.persons.dao.entity.PersonsDataEntity;
  *
  * Taking the data from the entity class especially created for the database
  */
-public interface PersonDao {
-    public String addPerson(PersonsDataEntity entity);
+
+public interface PersonsDao {
+	public String addPerson(PersonsDataEntity entity);
 }

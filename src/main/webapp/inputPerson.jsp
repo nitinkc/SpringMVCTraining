@@ -9,7 +9,6 @@ Project : Done as a part of the Training given at SynergisticIT
     isELIgnored="false"
 %>
 
-<!DOCTYPE html>
 <html>
 <head lang="en">
     <meta charset="utf-8">

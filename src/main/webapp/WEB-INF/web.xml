@@ -9,13 +9,11 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	
-<!-- 
-Here we are configuring the front controller
- -->
+	<!-- Here we are configuring the front controller for the flag app-->
 	<servlet>
 		<servlet-name>flags</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<!-- WHAT IS THIS FOR????? -->
+		<!-- WHAT IS THIS FOR????? For Multiple Dispatcher Servlets -->
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
@@ -24,5 +22,6 @@ Here we are configuring the front controller
 		<servlet-name>flags</servlet-name>
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
-
+	
+	<!-- Here we are configuring the front controller -->
 </web-app>

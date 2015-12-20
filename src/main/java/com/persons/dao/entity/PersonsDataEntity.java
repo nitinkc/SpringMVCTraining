@@ -43,7 +43,7 @@ public class PersonsDataEntity {
         this.isHappy = isHappy;
     }
 
-    //    ACCESSORS AND MUTATORS
+    // ACCESSORS AND MUTATORS
     public String getEmail() {
         return email;
     }

@@ -19,19 +19,20 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class PersonsController {
+	
     @Autowired
     @Qualifier("IPersonService")
     protected PersonService personService;
 
     @RequestMapping(value="uploadPersonData.do", method = RequestMethod.POST)
     public String uploadPersonsData(HttpServletRequest request, Model model){
-        String email = request.getParameter("email");
+        String email 	= request.getParameter("email");
         String password = request.getParameter("password");
-        String dob = request.getParameter("dob");
-        String tob = request.getParameter("tob");
-        String country = request.getParameter("country");
-        String ethnicity = request.getParameter("ethnicity");
-        String isHappy = request.getParameter("isHappy");
+        String dob 		= request.getParameter("dob");
+        String tob 		= request.getParameter("tob");
+        String country 	= request.getParameter("country");
+        String ethnicity= request.getParameter("ethnicity");
+        String isHappy 	= request.getParameter("isHappy");
 
         PersonsFormData pfd = new PersonsFormData(email,password,dob,tob,country,ethnicity,isHappy);
 
