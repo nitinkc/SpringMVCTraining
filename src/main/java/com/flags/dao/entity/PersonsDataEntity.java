@@ -15,8 +15,9 @@ public class PersonsDataEntity {
     private String dob;
     private String tob;
     private String country;
-    private String ethnicity ;
+    private String ethinicity ;
     private String isHappy;
+    private byte[] image;
 
     // For creating a new Object in the IPersonService
     public PersonsDataEntity() {
@@ -24,21 +25,22 @@ public class PersonsDataEntity {
     }
 
     // Name Constructor
-    public PersonsDataEntity(String email, String password, String dob, String tob, String country, String ethnicity, String isHappy) {
+    public PersonsDataEntity(String email, String password, String dob, String tob, String country, String ethnicity, String isHappy, byte[] image) {
         this.email = email;
         this.password = password;
         this.dob = dob;
         this.tob = tob;
         this.country = country;
-        this.ethnicity = ethnicity;
+        this.ethinicity = ethnicity;
         this.isHappy = isHappy;
+        this.image = image;
     }
 
     @Override
     public String toString() {
         String ret = "From PersonsDataEntiry : [email: " + email +
                 ", password: " + password + ", Date Of Birth: " + dob + ", Time of Birth: " +
-                tob + ", Country: " + country + ", ethnicity: " + ethnicity + ", isHappy? " + isHappy;
+                tob + ", Country: " + country + ", ethnicity: " + ethinicity + ", isHappy? " + isHappy;
 
         return ret;
     }
@@ -83,12 +85,12 @@ public class PersonsDataEntity {
         this.country = country;
     }
 
-    public String getEthnicity() {
-        return ethnicity;
+    public String getEthinicity() {
+        return ethinicity;
     }
 
-    public void setEthnicity(String ethnicity) {
-        this.ethnicity = ethnicity;
+    public void setEthinicity(String ethnicity) {
+        this.ethinicity = ethnicity;
     }
 
     public String getIsHappy() {
@@ -98,4 +100,12 @@ public class PersonsDataEntity {
     public void setIsHappy(String isHappy) {
         this.isHappy = isHappy;
     }
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
 }

@@ -1,23 +1,22 @@
 package com.flags.controller;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import com.flags.controller.model.PersonsFormData;
 import com.flags.service.PersonService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 
 import com.flags.service.CountryNameReverseService;
-
-import java.io.IOException;
-import java.util.List;
 
 @Controller
 public class FlagsController {
@@ -57,7 +56,7 @@ public class FlagsController {
 
         // Spring Form Passing all the data
         personService.addPerson(pfd);
-		model.addAttribute("message", "Success!!!");
+		model.addAttribute("message", "Success(from model.addAttr)!!!");
 		//Call the personAddSuccess.jsp
 		return "personAddSuccess";
 	}
@@ -81,4 +80,13 @@ public class FlagsController {
 		// Dispatch the result to the same Page
 		return "searchFlag"; // View name without extension.... searchedFlag.html
 	}
+	
+	@InitBinder
+    public void initBinder(WebDataBinder binder) {
+             // to actually be able to convert Multi- part instance to byte[]
+             // we have to register a custom editor
+             binder.registerCustomEditor(byte[].class,
+                                new ByteArrayMultipartFileEditor());
+             // now Spring knows how to handle multi-part object and convert them
+    }
 }

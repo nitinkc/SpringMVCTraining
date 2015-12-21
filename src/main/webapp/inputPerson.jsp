@@ -37,7 +37,7 @@ Project : Done as a part of the Training given at SynergisticIT
 
 </head>
 
-<!--Using Spy Scroll for in the body element (CSS Customised in myCustomCSS)-->
+<!--Using Spy Scroll for in the body element (CSS should be Customized in myCustomCSS)-->
 <body>
 <!-------------  Square Image with Brainy Quote Daily ------------->
 <div class="content-section text-center" id="introduction">
@@ -63,10 +63,9 @@ Project : Done as a part of the Training given at SynergisticIT
 
 <div class="content-section" id="feedback">
     <div class="container">
-        <nitin:form class="form-horizontal" action="uploadPersonData.do" method="post" commandName="cform">
+        <nitin:form class="form-horizontal" action="uploadPersonData.do" method="post" commandName="cform" enctype="multipart/form-data">
             <fieldset>
                 <!-- Form Name -->
-
                 <legend class="text-primary"> Enter Persons Details </legend>
 
                 <!-- Text input-->
@@ -160,6 +159,16 @@ Project : Done as a part of the Training given at SynergisticIT
                                                           id="radios-1" value="2"> NO
                             </label>
                         </div>
+                    </div>
+                </div>
+                <!-- Upload image -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" > Upload Image
+                    </label>
+                    <div class="col-md-8">
+                        <span class="btn btn-default btn-file">
+                        	<input type="file">
+                        </span>
                     </div>
                 </div>
 

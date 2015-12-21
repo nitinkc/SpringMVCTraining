@@ -12,15 +12,15 @@ public class PersonsFormData {
     private String dob;
     private String tob;
     private String country;
-    private String ethnicity ;
+    private String ethinicity ;
     private String isHappy;
-    //private byte[] image;
+    private byte[] image;
 
     @Override
     public String toString() {
         String ret = "From PersonsDataEntiry : [email: " + email +
                 ", password: " + password + ", Date Of Birth: " + dob + ", Time of Birth: " +
-                tob + ", Country: " + country + ", ethnicity: " + ethnicity + ", isHappy? " + isHappy;
+                tob + ", Country: " + country + ", ethnicity: " + ethinicity + ", isHappy? " + isHappy;
 
         return ret;
     }
@@ -30,14 +30,15 @@ public class PersonsFormData {
     }
 
     // Name Constructor
-    public PersonsFormData(String email, String password, String dob, String tob, String country, String ethnicity, String isHappy) {
+    public PersonsFormData(String email, String password, String dob, String tob, String country, String ethnicity, String isHappy, byte[] image) {
         this.email = email;
         this.password = password;
         this.dob = dob;
         this.tob = tob;
         this.country = country;
-        this.ethnicity = ethnicity;
+        this.ethinicity = ethnicity;
         this.isHappy = isHappy;
+        this.setImage(image);
     }
 
     //    ACCESSORS AND MUTATORS
@@ -82,11 +83,11 @@ public class PersonsFormData {
     }
 
     public String getEthnicity() {
-        return ethnicity;
+        return ethinicity;
     }
 
     public void setEthnicity(String ethnicity) {
-        this.ethnicity = ethnicity;
+        this.ethinicity = ethnicity;
     }
 
     public String getIsHappy() {
@@ -96,4 +97,12 @@ public class PersonsFormData {
     public void setIsHappy(String isHappy) {
         this.isHappy = isHappy;
     }
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
 }
