@@ -52,7 +52,7 @@ public class IPersonDao implements PersonsDao {
         		entity.getDob(), entity.getTob(), entity.getCountry(), 
         		entity.getEthinicity(), entity.getIsHappy(), 
         		new Timestamp(new Date().getTime()), entity.getImage()};
-        //System.out.println(entity.getEmail() +":"+ entity.getPassword() +": " + entity.getDob() +" "+ entity.getTob() + ":" +  entity.getCountry() + ":" + entity.getEthinicity() + ": "+  entity.getIsHappy() + ": " + new Timestamp(new Date().getTime()));
+        System.out.println(entity.getEmail() +":"+ entity.getPassword() +": " + entity.getDob() +" "+ entity.getTob() + ":" +  entity.getCountry() + ":" + entity.getEthinicity() + ": "+  entity.getIsHappy() + ": " + new Timestamp(new Date().getTime()));
 
         jdbcTemplate.update(query, data, dataType);
         return "success";

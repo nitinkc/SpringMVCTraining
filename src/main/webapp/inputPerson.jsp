@@ -116,12 +116,12 @@ Project : Done as a part of the Training given at SynergisticIT
                     <div class="col-md-4">
                         <select id="selectmultiple" name="country"
                                 class="form-control" multiple="multiple">
-                            <option value="1">India</option>
-                            <option value="2">USA</option>
-                            <option value="6">Japan</option>
-                            <option value="4">China</option>
-                            <option value="5">Austria</option>
-                            <option value="3">Iran</option>
+                            <option value="India">India</option>
+                            <option value="USA">USA</option>
+                            <option value="Japan">Japan</option>
+                            <option value="China">China</option>
+                            <option value="Austria">Austria</option>
+                            <option value="Iran">Iran</option>
                         </select>
                     </div>
                 </div>
@@ -135,11 +135,11 @@ Project : Done as a part of the Training given at SynergisticIT
                     </label>
                     <div class="col-md-4">
                         <select id="selectbasic" name="ethnicity" class="form-control">
-                            <option value="1">American Indian or Alaska Native</option>
-                            <option value="2">Asian</option>
-                            <option value="3">Black or African American</option>
-                            <option value="4">Native Hawaiian or Other Pacific Islander</option>
-                            <option value="5">White </option>
+                            <option value="American Indian or Alaska Native">American Indian or Alaska Native</option>
+                            <option value="Asian">Asian</option>
+                            <option value="Black or African American">Black or African American</option>
+                            <option value="Native Hawaiian or Other Pacific Islander">Native Hawaiian or Other Pacific Islander</option>
+                            <option value="White">White </option>
                         </select>
                     </div>
                 </div>
@@ -151,12 +151,12 @@ Project : Done as a part of the Training given at SynergisticIT
                         <div class="radio">
                             <label for="radios-0">
                                 <input type="radio" name="isHappy"
-                                       id="radios-0" value="1" checked="checked"> YES
+                                       id="radios-0" value="Yes" checked="checked"> YES
                             </label>
                         </div>
                         <div class="radio">
                             <label for="radios-1"> <input type="radio" name="isHappy"
-                                                          id="radios-1" value="2"> NO
+                                                          id="radios-1" value="No"> NO
                             </label>
                         </div>
                     </div>
@@ -167,7 +167,7 @@ Project : Done as a part of the Training given at SynergisticIT
                     </label>
                     <div class="col-md-8">
                         <span class="btn btn-default btn-file">
-                        	<input type="file">
+                        	<input type="file" name="image">
                         </span>
                     </div>
                 </div>
@@ -177,7 +177,8 @@ Project : Done as a part of the Training given at SynergisticIT
                     <label class="col-md-4 control-label" for="button1id">Double
                         Button</label>
                     <div class="col-md-8">
-                        <button id="button1id" name="button1id" class="btn btn-success"> Submit </button>
+                        <!-- Type should be submit else the image is not uploading-->
+                        <button type="sumbit" id="button1id" name="button1id" class="btn btn-success"> Submit </button>
                         <button id="button2id" name="button2id" class="btn btn-danger"> Cancel</button>
                     </div>
                 </div>
