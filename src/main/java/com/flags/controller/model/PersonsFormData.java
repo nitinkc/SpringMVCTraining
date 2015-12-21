@@ -14,15 +14,7 @@ public class PersonsFormData {
     private String country;
     private String ethnicity ;
     private String isHappy;
-    private byte[] image;
-
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
+    //private byte[] image;
 
     @Override
     public String toString() {

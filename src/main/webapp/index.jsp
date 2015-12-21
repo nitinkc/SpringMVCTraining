@@ -7,7 +7,7 @@
 </p>
 
 <p>
-    <a href="inputPerson.jsp" > Input Information of a Person </a>
+    <a href="uploadPersonData.do" > Input Information of a Person </a>
 </p>
 </body>
 </html>

@@ -36,6 +36,12 @@ public class FlagsController {
         System.out.println("@@@@@ CONTROLLER INSTANTIATED @@@@@@@@@");
     }
 
+	@RequestMapping(value="uploadPersonData.do", method = RequestMethod.GET)
+	public String getPersonPage(Model model){
+		PersonsFormData pd = new PersonsFormData();
+		model.addAttribute("cform",pd);
+		return "inputPerson";
+	}
 //    Upload persson data is the action name from the form
 	@RequestMapping(value="uploadPersonData.do", method = RequestMethod.POST)
 	public String uploadPersonsData(@ModelAttribute("cform")PersonsFormData pfd, Model model) {// cform from jsp and creating an obj of personsFormData
@@ -55,6 +61,8 @@ public class FlagsController {
 		//Call the personAddSuccess.jsp
 		return "personAddSuccess";
 	}
+
+
 	//Maps the forms Action to this method in Model (In Spring = "Controller")
 	@RequestMapping(value="searchFlag.do", method=RequestMethod.POST)
 	public String showFlag(HttpServletRequest request, Model model){
@@ -73,10 +81,4 @@ public class FlagsController {
 		// Dispatch the result to the same Page
 		return "searchFlag"; // View name without extension.... searchedFlag.html
 	}
-
-    public String getPersonPage(Model model){
-        PersonsFormData pd = new PersonsFormData();
-        model.addAttribute("cform",pd);
-        return "inputPerson";
-    }
 }

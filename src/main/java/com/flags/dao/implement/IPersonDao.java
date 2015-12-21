@@ -34,7 +34,11 @@ public class IPersonDao implements PersonsDao {
     @Override
     public String addPerson(PersonsDataEntity entity) {
         // Time Stamp from java.sql package
-        Object query = new Object[]{entity.getEmail(), entity.getPassword(), entity.getDob(), entity.getTob(), entity.getCountry(), entity.getEthnicity(), entity.getIsHappy(), new Timestamp(new Date().getTime())};
+        String query = "insert into mvc_person_details(email, password,dob,tob,country,ethnicity,isHappy,entryDate) values(?,?,?,?,?,?,?,?)";
+        Object data[] = new Object[]{entity.getEmail(), entity.getPassword(), entity.getDob(), entity.getTob(), entity.getCountry(), entity.getEthnicity(), entity.getIsHappy(), new Timestamp(new Date().getTime())};
+        System.out.println(entity.getEmail(), entity.getPassword(), entity.getDob(), entity.getTob(), entity.getCountry(), entity.getEthnicity(), entity.getIsHappy(), new Timestamp(new Date().getTime());
+
+        jdbcTemplate.update(query, data);
         return "success";
     }
 }
