@@ -1,6 +1,6 @@
-package com.persons.dao;
+package com.flags.dao;
 
-import com.persons.dao.entity.PersonsDataEntity;
+import com.flags.dao.entity.PersonsDataEntity;
 
 /**
  * Created by Nitin C on 12/17/2015.

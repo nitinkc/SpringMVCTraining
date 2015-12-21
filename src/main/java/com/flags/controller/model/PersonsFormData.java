@@ -1,4 +1,4 @@
-package com.persons.model.controller;
+package com.flags.controller.model;
 
 /**
  * 
@@ -14,6 +14,15 @@ public class PersonsFormData {
     private String country;
     private String ethnicity ;
     private String isHappy;
+    private byte[] image;
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
 
     @Override
     public String toString() {
@@ -23,6 +32,11 @@ public class PersonsFormData {
 
         return ret;
     }
+
+    public PersonsFormData() {
+        System.out.println("Person Form Data initiated");
+    }
+
     // Name Constructor
     public PersonsFormData(String email, String password, String dob, String tob, String country, String ethnicity, String isHappy) {
         this.email = email;

@@ -1,4 +1,4 @@
-package com.persons.dao.entity;
+package com.flags.dao.entity;
 
 /**
  * Created by Nitin C on 12/17/2015.
@@ -23,15 +23,6 @@ public class PersonsDataEntity {
 
     }
 
-    @Override
-    public String toString() {
-        String ret = "From PersonsDataEntiry : [email: " + email +
-                ", password: " + password + ", Date Of Birth: " + dob + ", Time of Birth: " +
-                tob + ", Country: " + country + ", ethnicity: " + ethnicity + ", isHappy? " + isHappy;
-
-        return ret;
-    }
-
     // Name Constructor
     public PersonsDataEntity(String email, String password, String dob, String tob, String country, String ethnicity, String isHappy) {
         this.email = email;
@@ -43,6 +34,14 @@ public class PersonsDataEntity {
         this.isHappy = isHappy;
     }
 
+    @Override
+    public String toString() {
+        String ret = "From PersonsDataEntiry : [email: " + email +
+                ", password: " + password + ", Date Of Birth: " + dob + ", Time of Birth: " +
+                tob + ", Country: " + country + ", ethnicity: " + ethnicity + ", isHappy? " + isHappy;
+
+        return ret;
+    }
     // ACCESSORS AND MUTATORS
     public String getEmail() {
         return email;

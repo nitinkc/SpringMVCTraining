@@ -1,13 +1,15 @@
-package com.persons.service.implementation;
+package com.flags.service.implementation;
 
-import com.persons.dao.PersonsDao;
-import com.persons.dao.entity.PersonsDataEntity;
-import com.persons.model.controller.PersonsFormData;
-import com.persons.service.PersonService;
+import com.flags.dao.PersonsDao;
+import com.flags.dao.entity.PersonsDataEntity;
+import com.flags.controller.model.PersonsFormData;
+import com.flags.service.PersonService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by Nitin C on 12/17/2015.
@@ -18,7 +20,7 @@ public class IPersonService implements PersonService {
 
     @Autowired
     @Qualifier("IPersonDao")
-    private PersonsDao pd;
+    private PersonsDao personsDao;
     
     @Override
     public String addPerson(PersonsFormData personsFormData) {
@@ -26,8 +28,17 @@ public class IPersonService implements PersonService {
 
         // Copying the data from the form into the entity that interacts with the DB
         BeanUtils.copyProperties(personsFormData, entity);
-
-        String result = pd.addPerson(entity);
+        String result = personsDao.addPerson(entity);
         return result;
+    }
+
+    @Override
+    public List<PersonsFormData> findPersons() {
+        return null;
+    }
+
+    @Override
+    public byte[] findImageByPid(String pid) {
+        return new byte[0];
     }
 }

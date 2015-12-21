@@ -8,6 +8,8 @@ Project : Done as a part of the Training given at SynergisticIT
     pageEncoding="UTF-8"
     isELIgnored="false"
 %>
+<%-- For Spring Form--%>
+<%@taglib prefix="nitin" uri="http://www.springframework.org/tags/form" %>
 
 <html>
 <head lang="en">
@@ -61,7 +63,7 @@ Project : Done as a part of the Training given at SynergisticIT
 
 <div class="content-section" id="feedback">
     <div class="container">
-        <form class="form-horizontal" action="uploadPersonData.do" method="post">
+        <nitin:form class="form-horizontal" action="uploadPersonData.do" method="post" commandName="cform">
             <fieldset>
                 <!-- Form Name -->
 
@@ -172,7 +174,7 @@ Project : Done as a part of the Training given at SynergisticIT
                 </div>
 
             </fieldset>
-        </form>
+        </nitin:form>
     </div>
 </div>
 <br>
