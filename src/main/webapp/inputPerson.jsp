@@ -5,8 +5,8 @@ Project : Done as a part of the Training given at SynergisticIT
 -->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"
-    isELIgnored="false"
+         pageEncoding="UTF-8"
+         isELIgnored="false"
 %>
 <%-- For Spring Form--%>
 <%@taglib prefix="nitin" uri="http://www.springframework.org/tags/form" %>
@@ -63,10 +63,11 @@ Project : Done as a part of the Training given at SynergisticIT
 
 <div class="content-section" id="feedback">
     <div class="container">
-        <nitin:form class="form-horizontal" action="uploadPersonData.do" method="post" commandName="cform" enctype="multipart/form-data">
+        <nitin:form class="form-horizontal" action="uploadPersonData.do" method="post" commandName="cform"
+                    enctype="multipart/form-data">
             <fieldset>
                 <!-- Form Name -->
-                <legend class="text-primary"> Enter Persons Details </legend>
+                <legend class="text-primary"> Enter Persons Details</legend>
 
                 <!-- Text input-->
                 <div class="form-group">
@@ -104,8 +105,8 @@ Project : Done as a part of the Training given at SynergisticIT
                     <label class="col-md-4 control-label">
                         Time Of Birth</label>
                     <div class="col-md-4">
-                        <input id="reserveTime" name="tob" type="time"
-                               placeholder="HH:MM" class="form-control input-md" required="">
+                        <input id="reserveTime" name="tob" type="time" placeholder="HH:MM" class="form-control input-md"
+                               required="">
                     </div>
                 </div>
 
@@ -114,8 +115,7 @@ Project : Done as a part of the Training given at SynergisticIT
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="selectmultiple">Select Country</label>
                     <div class="col-md-4">
-                        <select id="selectmultiple" name="country"
-                                class="form-control" multiple="multiple">
+                        <select id="selectmultiple" name="country" class="form-control" multiple="multiple">
                             <option value="India">India</option>
                             <option value="USA">USA</option>
                             <option value="Japan">Japan</option>
@@ -138,8 +138,10 @@ Project : Done as a part of the Training given at SynergisticIT
                             <option value="American Indian or Alaska Native">American Indian or Alaska Native</option>
                             <option value="Asian">Asian</option>
                             <option value="Black or African American">Black or African American</option>
-                            <option value="Native Hawaiian or Other Pacific Islander">Native Hawaiian or Other Pacific Islander</option>
-                            <option value="White">White </option>
+                            <option value="Native Hawaiian or Other Pacific Islander">Native Hawaiian or Other Pacific
+                                Islander
+                            </option>
+                            <option value="White">White</option>
                         </select>
                     </div>
                 </div>
@@ -163,7 +165,7 @@ Project : Done as a part of the Training given at SynergisticIT
                 </div>
                 <!-- Upload image -->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" > Upload Image
+                    <label class="col-md-4 control-label"> Upload Image
                     </label>
                     <div class="col-md-8">
                         <span class="btn btn-default btn-file">
@@ -178,7 +180,7 @@ Project : Done as a part of the Training given at SynergisticIT
                         Button</label>
                     <div class="col-md-8">
                         <!-- Type should be submit else the image is not uploading-->
-                        <button type="sumbit" id="button1id" name="button1id" class="btn btn-success"> Submit </button>
+                        <button type="sumbit" id="button1id" name="button1id" class="btn btn-success"> Submit</button>
                         <button id="button2id" name="button2id" class="btn btn-danger"> Cancel</button>
                     </div>
                 </div>
@@ -202,7 +204,9 @@ Project : Done as a part of the Training given at SynergisticIT
             <div class="col-sm-6">
                 <h1>Footer</h1>
                 <p>
-                    Icon made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>
+                    Icon made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a
+                        href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed under <a
+                        href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>
                 </p>
             </div>
         </div>
