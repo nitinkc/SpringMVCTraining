@@ -4,11 +4,15 @@ import com.flags.dao.PersonsDao;
 import com.flags.dao.entity.PersonsDataEntity;
 import com.flags.controller.model.PersonsFormData;
 import com.flags.service.PersonService;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,6 +26,8 @@ public class IPersonService implements PersonService {
     @Qualifier("IPersonDao")
     private PersonsDao personsDao;
     
+    private JdbcTemplate jdbcTemplate;
+    
     @Override
     public String addPerson(PersonsFormData personsFormData) {
         PersonsDataEntity entity = new PersonsDataEntity();
@@ -34,11 +40,18 @@ public class IPersonService implements PersonService {
 
     @Override
     public List<PersonsFormData> findPersons() {
-        return null;
+    	List<PersonsFormData> personsFormList=new ArrayList<PersonsFormData>();
+		List<PersonsDataEntity> personsEntities=personsDao.findPersons();
+		for(PersonsDataEntity pde:personsEntities){
+			PersonsFormData form=new PersonsFormData();
+			  BeanUtils.copyProperties(pde, form);
+			  personsFormList.add(form);
+		}
+		return personsFormList;
     }
-
+    
     @Override
-    public byte[] findImageByPid(String pid) {
-        return new byte[0];
+    public byte[] findImageByUID(String uId) {
+		return personsDao.findImageByUID(uId);
     }
 }

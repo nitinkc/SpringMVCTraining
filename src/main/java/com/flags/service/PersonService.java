@@ -13,5 +13,5 @@ public interface PersonService {
     // Taking the data from the model.model
     public String addPerson(PersonsFormData personsFormData);
     public List<PersonsFormData> findPersons();
-    public byte[] findImageByPid(String pid);
+    public byte[] findImageByUID(String uId);
 }

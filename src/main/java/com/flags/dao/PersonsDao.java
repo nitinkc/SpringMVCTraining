@@ -1,5 +1,7 @@
 package com.flags.dao;
 
+import java.util.List;
+
 import com.flags.dao.entity.PersonsDataEntity;
 
 /**
@@ -10,4 +12,8 @@ import com.flags.dao.entity.PersonsDataEntity;
 
 public interface PersonsDao {
 	public String addPerson(PersonsDataEntity entity);
+
+	List<PersonsDataEntity> findPersons();
+
+	byte[] findImageByUID(String uId);
 }

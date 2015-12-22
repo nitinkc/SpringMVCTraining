@@ -83,7 +83,7 @@ Project : Done as a part of the Training given at SynergisticIT
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="passwordinput">Password</label>
                     <div class="col-md-4">
-                        <input id="passwordinput" name="password" type="text"
+                        <input type="password" id="passwordinput" name="password" 
                                placeholder="Enter Password" class="form-control input-md"
                                required="">
                     </div>

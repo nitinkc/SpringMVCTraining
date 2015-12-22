@@ -3,6 +3,7 @@ package com.flags.dao.implement;
 import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
@@ -12,6 +13,7 @@ import com.flags.dao.PersonsDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.support.SqlLobValue;
 import org.springframework.jdbc.support.lob.DefaultLobHandler;
@@ -44,7 +46,7 @@ public class IPersonDao implements PersonsDao {
         LobHandler lobHandler = new DefaultLobHandler();
         SqlLobValue sqlLobValue=new SqlLobValue(entity.getImage(),lobHandler);
         //Types from java.sql Package
-        int[] dataType=new int[] { Types.VARCHAR, Types.VARCHAR,Types.DATE,Types.VARCHAR,
+        int[] dataType=new int[] { Types.VARCHAR, Types.VARCHAR,Types.VARCHAR,Types.VARCHAR,
                         Types.VARCHAR, Types.VARCHAR,Types.VARCHAR,
                         Types.TIMESTAMP,Types.BLOB };
         
@@ -57,4 +59,19 @@ public class IPersonDao implements PersonsDao {
         jdbcTemplate.update(query, data, dataType);
         return "success";
     }
+    
+	@Override
+	public List<PersonsDataEntity> findPersons() {
+		String query="select * from mvc_person_details";
+		List<PersonsDataEntity> fruitList=jdbcTemplate.query(query, new BeanPropertyRowMapper(PersonsDataEntity.class));
+		return fruitList;
+	}
+
+	@Override
+	public byte[] findImageByUID(String uId) {
+		String query="select * from mvc_person_details where UID="+uId;
+		PersonsDataEntity personEntity=jdbcTemplate.queryForObject(query, new BeanPropertyRowMapper(PersonsDataEntity.class));
+		return personEntity.getImage();
+	}
+	
 }

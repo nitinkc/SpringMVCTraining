@@ -1,5 +1,8 @@
 package com.flags.controller.model;
 
+import java.sql.Time;
+import java.sql.Date;
+
 /**
  * 
  * Created by Nitin C on 12/17/2015.
@@ -42,61 +45,61 @@ public class PersonsFormData {
     }
 
     //    ACCESSORS AND MUTATORS
-    public String getEmail() {
-        return email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public String getDob() {
-        return dob;
-    }
+	public String getDob() {
+		return dob;
+	}
 
-    public void setDob(String dob) {
-        this.dob = dob;
-    }
+	public void setDob(String dob) {
+		this.dob = dob;
+	}
 
-    public String getTob() {
-        return tob;
-    }
+	public String getTob() {
+		return tob;
+	}
 
-    public void setTob(String tob) {
-        this.tob = tob;
-    }
+	public void setTob(String tob) {
+		this.tob = tob;
+	}
 
-    public String getCountry() {
-        return country;
-    }
+	public String getCountry() {
+		return country;
+	}
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
+	public void setCountry(String country) {
+		this.country = country;
+	}
 
-    public String getEthnicity() {
-        return ethinicity;
-    }
+	public String getEthinicity() {
+		return ethinicity;
+	}
 
-    public void setEthnicity(String ethnicity) {
-        this.ethinicity = ethnicity;
-    }
+	public void setEthinicity(String ethinicity) {
+		this.ethinicity = ethinicity;
+	}
 
-    public String getIsHappy() {
-        return isHappy;
-    }
+	public String getIsHappy() {
+		return isHappy;
+	}
 
-    public void setIsHappy(String isHappy) {
-        this.isHappy = isHappy;
-    }
+	public void setIsHappy(String isHappy) {
+		this.isHappy = isHappy;
+	}
 
 	public byte[] getImage() {
 		return image;
@@ -104,5 +107,5 @@ public class PersonsFormData {
 
 	public void setImage(byte[] image) {
 		this.image = image;
-	}
+	}  
 }
