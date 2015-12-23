@@ -66,8 +66,7 @@
 		<table class="table table-bordered" style="width: 80%">
 			<thead>
 				<tr>
-					<!-- 					<th>SNo</th>
- -->
+					<th>SNo</th>
 					<th>UID</th>
 					<th>Email</th>
 					<th>password</th>
@@ -76,7 +75,6 @@
 					<th>Country</th>
 					<th>Ethinicity</th>
 					<th>isHappy?</th>
-					<!-- <th>Entry Date</th> -->
 					<th>Image</th>
 				</tr>
 			</thead>
@@ -84,8 +82,7 @@
 
 				<pre:forEach items="${personForms}" var="item" varStatus="sno">
 					<tr>
-						<%-- 						<td>${sno.count}</td>
- --%>
+						<td>${sno.count}</td>
 						<td>${item.UID}</td>
 						<td>${item.email}</td>
 						<td>${item.password}</td>
@@ -94,10 +91,10 @@
 						<td>${item.country}</td>
 						<td>${item.ethinicity}</td>
 						<td>${item.isHappy}</td>
-						<%--  <td>${item.entryDate}</td> --%>
-						<td><img src="findImageByUID.do?uId=${sno.count}"
+						<td><img src="findImageByUID.do?uId=${item.UID}"
 							style="width: 60px;" class="img-circle"></td>
-
+						<!-- Provide item.UID for properly matching the image -->
+						<!-- EDIT AND DELETE BUTTONS  -->
 						<td><a href="editPersonByUID.do?uId=${item.UID}"> <img
 								src="img/edit.png" style="height: 30px; width: 30px" />
 						</a> &nbsp;&nbsp; <a href="deletePersonByUID.do?uId=${item.UID}"><img
@@ -107,13 +104,19 @@
 			</tbody>
 		</table>
 
+		<!-- Printing the Records information -->
+		Page ${currentPage} Of ${noOfPages} Pages with Total Of ${noOfRecords} Records <br>
+		
 		<%--For displaying Previous link except for the 1st page --%>
 		<pre:if test="${currentPage != 1}">
 			<td><a href="personsPagination.do?page=${currentPage - 1}">Previous</a></td>
 		</pre:if>
+		&nbsp;&nbsp; | &nbsp;&nbsp;
+		<pre:if test="${currentPage lt noOfPages}">
+			<td><a href="personsPagination.do?page=${currentPage + 1}">Next</a></td>
+		</pre:if>
 
-		<%--For displaying Page numbers. 
-    The when condition does not display a link for the current page--%>
+<%--For displaying Page numbers. The when condition does not display a link for the current page--%>
 		<table class="table table-bordered" border="1" cellpadding="5" cellspacing="5">
 			<tr>
 				<pre:forEach begin="1" end="${noOfPages}" var="i">
@@ -127,12 +130,10 @@
 					</pre:choose>
 				</pre:forEach>
 			</tr>
-		</table>
-
-		<%--For displaying Next link --%>
-		<c:if test="${currentPage lt noOfPages}">
-			<td><a href="personsPagination.do?page=${currentPage + 1}">Next</a></td>
-		</c:if>
+			<%--For displaying Next link --%>
+		
+		</table>		
+		
 	</div>
 </body>
 </html>

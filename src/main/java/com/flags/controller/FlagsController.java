@@ -98,7 +98,7 @@ public class FlagsController {
 	public String editPersonByUID(@RequestParam("uId") String uId,Model model) {
 		System.out.println(uId);
 		PersonsFormData result=personService.findPersonByUID(uId);
-		System.out.println("Result get UID : " + result.getUID());
+		//System.out.println("Result get UID : " + result.getUID());
 		model.addAttribute("cform", result);
 		return "inputPerson";
 	}
@@ -109,10 +109,10 @@ public class FlagsController {
 		List<PersonsFormData>  personsForms = personService.findPersons();
 		
 		// This result is the result returning from the deletePersonByUID from the IPersonDao
-		System.out.println("@@@@@ CAME HERE @@@@@@    "+ result);
-		model.addAttribute("result", result);
+		System.out.println("DEBUG: From DeletePersonwithUID@@@@@ CAME HERE @@@@@@    "+ result);
+		//model.addAttribute("result", result);
 		
-		model.addAttribute("personsForms", personsForms);
+		model.addAttribute("personForms", personsForms);
 		return "persons";
 	}
 	
@@ -139,7 +139,7 @@ public class FlagsController {
         request.setAttribute("personForms", personForms);
         request.setAttribute("noOfPages", noOfPages);
         request.setAttribute("currentPage", page);
-        
+        request.setAttribute("noOfRecords",personService.getNoOfRecords());
         model.addAttribute("personForms", personForms);
         
         return "persons";

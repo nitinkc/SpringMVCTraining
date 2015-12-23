@@ -122,12 +122,13 @@ public class IPersonDao implements PersonsDao {
 	public String deletePersonByUID(String uId) {
 		String query = "delete from mvc_person_details where UID=" + uId;
 		int p = jdbcTemplate.update(query);
-		// WHERE WOULD THIS BE PRINTED???
+		// WHERE WOULD THIS BE PRINTED??? In the COntroller, Finally
 		return p == 0 ? "Data could not be deleted"
 				: "Data is deleted successfully.";
 	}
 
 	@Override
+	//returns only one row, thus no list is returned
 	public PersonsDataEntity findPersonByUID(String uId) {
 		String query = "select * from mvc_person_details where UID=" + uId;
 		PersonsDataEntity personsEntity = jdbcTemplate.queryForObject(query,

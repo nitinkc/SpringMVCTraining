@@ -75,8 +75,8 @@ Project : Done as a part of the Training given at SynergisticIT
                     <label class="col-md-4 control-label" for="textinput">Login
                         Name</label>
                     <div class="col-md-4">
-                        <input id="textinput" name="email" type="text"
-                               placeholder="email id" class="form-control input-md" required="">
+                        <nitin:input type="text" id="textinput" path="email" 
+                               placeholder="email id" class="form-control input-md" required=""/>
                     </div>
                 </div>
 
@@ -84,9 +84,9 @@ Project : Done as a part of the Training given at SynergisticIT
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="passwordinput">Password</label>
                     <div class="col-md-4">
-                        <input type="password" id="passwordinput" name="password" 
+                        <nitin:input type="password" id="passwordinput" path="password" 
                                placeholder="Enter Password" class="form-control input-md"
-                               required="">
+                               required=""/>
                     </div>
                 </div>
 
@@ -94,10 +94,10 @@ Project : Done as a part of the Training given at SynergisticIT
                 <div class="form-group">
                     <label class="col-md-4 control-label">Date Of Birth</label>
                     <div class="col-md-4">
-                        <input
-                                name="dob"
-                                type="date" class="form-control"
-                                placeholder="MM/DD/YYYY">
+                        <nitin:input type="date"
+                                path="dob"
+                                class="form-control"
+                                placeholder="MM/DD/YYYY"/>
                     </div>
                 </div>
 
@@ -106,8 +106,8 @@ Project : Done as a part of the Training given at SynergisticIT
                     <label class="col-md-4 control-label">
                         Time Of Birth</label>
                     <div class="col-md-4">
-                        <input id="reserveTime" name="tob" type="time" placeholder="HH:MM" class="form-control input-md"
-                               required="">
+                        <nitin:input type="time" id="reserveTime" path="tob"  placeholder="HH:MM" class="form-control input-md"
+                               required=""/>
                     </div>
                 </div>
 

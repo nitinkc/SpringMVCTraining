@@ -91,6 +91,7 @@ public class IPersonService implements PersonService {
 	  public PersonsFormData findPersonByUID(String uId) {
 		  PersonsDataEntity entity=personsDao.findPersonByUID(uId);
 		  PersonsFormData personsForm = new PersonsFormData();
+		  // copying from source to destination
 		  BeanUtils.copyProperties(entity, personsForm);
 		  return personsForm;
 	  }
