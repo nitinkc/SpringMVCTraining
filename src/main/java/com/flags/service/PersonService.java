@@ -1,6 +1,7 @@
 package com.flags.service;
 
 import com.flags.controller.model.PersonsFormData;
+import com.flags.dao.entity.PersonsDataEntity;
 
 import java.util.List;
 
@@ -16,4 +17,9 @@ public interface PersonService {
     public byte[] findImageByUID(String uId);
 	String deletePersonByUID(String uId);
 	PersonsFormData findPersonByUID(String uId);
+	// SERVICES HAS FORM DATA (Both in List)
+	List<PersonsFormData> findData(String columnName, String searchString);
+	List<PersonsFormData> findPersonsWithPagination(int offset, int noOfRecords);
+	
+	public int getNoOfRecords();
 }

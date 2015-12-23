@@ -23,6 +23,35 @@
 </head>
 <body>
 
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<nav class="navbar navbar-default navbar-inverse" role="navigation">
+					<div class="collapse navbar-collapse"
+						id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav">
+
+						</ul>
+						<form class="navbar-form navbar-left" role="search"
+							action="searchDb.do" method="post">
+							<div class="form-group">
+								<select name="column">
+									<option value="UID">UID</option>
+									<option value="email">email</option>
+									<option value="country">country</option>
+								</select> <input type="text" class="form-control" name="searchString" />
+							</div>
+							<button type="submit" class="btn btn-default">Submit</button>
+
+
+						</form>
+					</div>
+
+				</nav>
+			</div>
+		</div>
+	</div>
+
 	<div class="content-section text-center" id="introduction">
 		<div class="container">
 			<div class="row">
@@ -37,8 +66,9 @@
 		<table class="table table-bordered" style="width: 80%">
 			<thead>
 				<tr>
-<!-- 					<th>SNo</th>
- -->					<th>UID</th>
+					<!-- 					<th>SNo</th>
+ -->
+					<th>UID</th>
 					<th>Email</th>
 					<th>password</th>
 					<th>DOB</th>
@@ -54,8 +84,9 @@
 
 				<pre:forEach items="${personForms}" var="item" varStatus="sno">
 					<tr>
-<%-- 						<td>${sno.count}</td>
- --%>						<td>${item.UID}</td>
+						<%-- 						<td>${sno.count}</td>
+ --%>
+						<td>${item.UID}</td>
 						<td>${item.email}</td>
 						<td>${item.password}</td>
 						<td>${item.dob}</td>
@@ -65,19 +96,43 @@
 						<td>${item.isHappy}</td>
 						<%--  <td>${item.entryDate}</td> --%>
 						<td><img src="findImageByUID.do?uId=${sno.count}"
-							style="width: 60px;" class="img-circle">
-						</td>
+							style="width: 60px;" class="img-circle"></td>
 
 						<td><a href="editPersonByUID.do?uId=${item.UID}"> <img
-								src="img/edit.png" style="height: 30px;width: 30px" />
+								src="img/edit.png" style="height: 30px; width: 30px" />
 						</a> &nbsp;&nbsp; <a href="deletePersonByUID.do?uId=${item.UID}"><img
-								src="img/delete.png" style="height: 30px;width: 30px" /></a></td>
+								src="img/delete.png" style="height: 30px; width: 30px" /></a></td>
 					</tr>
 				</pre:forEach>
-
-
 			</tbody>
 		</table>
+
+		<%--For displaying Previous link except for the 1st page --%>
+		<pre:if test="${currentPage != 1}">
+			<td><a href="personsPagination.do?page=${currentPage - 1}">Previous</a></td>
+		</pre:if>
+
+		<%--For displaying Page numbers. 
+    The when condition does not display a link for the current page--%>
+		<table class="table table-bordered" border="1" cellpadding="5" cellspacing="5">
+			<tr>
+				<pre:forEach begin="1" end="${noOfPages}" var="i">
+					<pre:choose>
+						<pre:when test="${currentPage eq i}">
+							<td>${i}</td>
+						</pre:when>
+						<pre:otherwise>
+							<td><a href="personsPagination.do?page=${i}">${i}</a></td>
+						</pre:otherwise>
+					</pre:choose>
+				</pre:forEach>
+			</tr>
+		</table>
+
+		<%--For displaying Next link --%>
+		<c:if test="${currentPage lt noOfPages}">
+			<td><a href="personsPagination.do?page=${currentPage + 1}">Next</a></td>
+		</c:if>
 	</div>
 </body>
 </html>

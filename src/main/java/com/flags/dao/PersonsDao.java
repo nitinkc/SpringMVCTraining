@@ -21,4 +21,11 @@ public interface PersonsDao {
 	String deletePersonByUID(String uId);
 
 	PersonsDataEntity findPersonByUID(String uId);
+	
+	List<PersonsDataEntity> findData(String columnName, String searchString);
+	List<PersonsDataEntity> findPersonsWithPagination(int offset, int noOfRecords);
+	
+	int getNoOfRecords();
+
+
 }

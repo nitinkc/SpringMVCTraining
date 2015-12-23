@@ -33,7 +33,11 @@
 					</p>
 
 					<p>
-						<a href="persons.do"> See Details of all the Persons </a>
+						<a href="persons.do"> See Details (and Search) of all the Persons </a>
+					</p>
+					<hr>
+					<p>
+						<a href="personsPagination.do"> See Details with Pagination </a>
 					</p>
 
 				</div>

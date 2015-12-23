@@ -42,11 +42,39 @@ public class IPersonService implements PersonService {
 		List<PersonsDataEntity> personsEntities=personsDao.findPersons();
 		for(PersonsDataEntity pde:personsEntities){
 			PersonsFormData form=new PersonsFormData();
-			//System.out.println("@@@@@@@CAME HERE@@@@@@@@@  "+pde.getUID());
 			  BeanUtils.copyProperties(pde, form);
 			  personsFormList.add(form);
 		}
 		return personsFormList;
+    }
+    
+    @Override
+	public List<PersonsFormData> findData(String columnName, String searchString) {
+		List<PersonsFormData> personsFormList=new ArrayList<PersonsFormData>();
+		List<PersonsDataEntity> personsEntities=personsDao.findData(columnName, searchString);
+		for(PersonsDataEntity pde:personsEntities){
+			PersonsFormData form=new PersonsFormData();
+			  BeanUtils.copyProperties(pde, form);
+			  personsFormList.add(form);
+		}
+		return personsFormList;
+	}
+    
+    @Override
+    public List<PersonsFormData> findPersonsWithPagination(int start,
+			int noOfRecords){
+    	List<PersonsFormData> personsFormList=new ArrayList<PersonsFormData>();
+		List<PersonsDataEntity> personsEntities=personsDao.findPersonsWithPagination(start, noOfRecords);
+		for(PersonsDataEntity pde:personsEntities){
+			PersonsFormData form=new PersonsFormData();
+			  BeanUtils.copyProperties(pde, form);
+			  personsFormList.add(form);
+		}
+		return personsFormList;
+    }
+    
+    public int getNoOfRecords(){
+    	return personsDao.getNoOfRecords();
     }
     
     @Override

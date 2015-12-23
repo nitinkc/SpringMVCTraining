@@ -42,6 +42,39 @@ public class FlagsController {
 	public FlagsController() {
 		System.out.println("@@@@@ CONTROLLER INSTANTIATED @@@@@@@@@");
 	}
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		// to actually be able to convert Multi-part instance to byte[]
+		// we have to register a custom editor
+		binder.registerCustomEditor(byte[].class,
+				new ByteArrayMultipartFileEditor());
+		// now Spring knows how to handle multi-part object and convert them
+	}
+	
+	/**
+	 * REQUEST MAPPINGS
+	 */
+	
+	@RequestMapping(value = "searchDb.do", method = RequestMethod.POST)
+	public String searchDb(HttpServletRequest req,
+			Model model){
+		//The searchString here is the name from the jsp page
+		String searchString = req.getParameter("searchString");
+		String columnName = req.getParameter("column");
+		
+		System.out.println("Column name is: " + columnName + 
+				" && searchString is " + searchString  );
+		
+		List<PersonsFormData> personsFormData = personService.findData(columnName, searchString);
+		System.out.println("###### DEBUG ####### ");
+		for(PersonsFormData pfd : personsFormData){
+			System.out.println(pfd.getDob());
+			
+		}
+		model.addAttribute("personForms",personsFormData);
+		return "persons";
+	}
 
 	@RequestMapping(value = "findImageByUID.do", method = RequestMethod.GET)
 	public void findImageByUID(HttpServletRequest req,
@@ -56,11 +89,11 @@ public class FlagsController {
 			outputStream.write(image);
 			outputStream.flush();
 		} catch (IOException e) {
+			// Write something useful
 			System.out.println("Cought Exception!!");
 		}
 	}
 	
-
 	@RequestMapping(value="editPersonByUID.do", method=RequestMethod.GET)
 	public String editPersonByUID(@RequestParam("uId") String uId,Model model) {
 		System.out.println(uId);
@@ -84,10 +117,32 @@ public class FlagsController {
 	}
 	
 	@RequestMapping(value = "persons.do", method = RequestMethod.GET)
-	public String showFruits(Model model) {
+	public String showPersons(Model model) {
 		List<PersonsFormData> personForms = personService.findPersons();
 		model.addAttribute("personForms", personForms);
 		return "persons";
+	}
+	
+	@RequestMapping(value = "personsPagination.do", method = RequestMethod.GET)
+	public String showPersonInPagination(HttpServletRequest request,
+			HttpServletResponse response,Model model){
+		int page = 1;
+        int recordsPerPage = 5;
+        if(request.getParameter("page") != null)
+            page = Integer.parseInt(request.getParameter("page"));
+		List<PersonsFormData> personForms = personService.
+				findPersonsWithPagination((page-1)*recordsPerPage, recordsPerPage);
+		
+        int noOfRecords = personService.getNoOfRecords();
+        int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
+        
+        request.setAttribute("personForms", personForms);
+        request.setAttribute("noOfPages", noOfPages);
+        request.setAttribute("currentPage", page);
+        
+        model.addAttribute("personForms", personForms);
+        
+        return "persons";
 	}
 	
 	@RequestMapping(value = "uploadPersonData.do", method = RequestMethod.GET)
@@ -146,14 +201,5 @@ public class FlagsController {
 		// Dispatch the result to the same Page
 		return "searchFlag"; // View name without extension....
 								// searchedFlag.html
-	}
-
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		// to actually be able to convert Multi-part instance to byte[]
-		// we have to register a custom editor
-		binder.registerCustomEditor(byte[].class,
-				new ByteArrayMultipartFileEditor());
-		// now Spring knows how to handle multi-part object and convert them
 	}
 }
