@@ -8,6 +8,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
+import com.flags.controller.model.PersonsFormData;
 import com.flags.dao.entity.PersonsDataEntity;
 import com.flags.dao.PersonsDao;
 
@@ -41,21 +42,31 @@ public class IPersonDao implements PersonsDao {
     @Override
     public String addPerson(PersonsDataEntity entity) {
         // Time Stamp from java.sql package
-        String query = "insert into mvc_person_details(email, password,dob,tob,country,ethinicity,isHappy,entryDate,image) values(?,?,?,?,?,?,?,?,?)";
+    	
+    	 String query="";
+         Object[] data={};
+         int[] dataType={};
+         
+         if(entity.getUID()==0){
+     		query = "insert into mvc_person_details(email, password,dob,tob,country,ethinicity,isHappy,entryDate,image) values(?,?,?,?,?,?,?,?,?)";
+     		data = new Object[]{entity.getEmail(), entity.getPassword(), 
+            		entity.getDob(), entity.getTob(), entity.getCountry(), 
+            		entity.getEthinicity(), entity.getIsHappy(), 
+            		new Timestamp(new Date().getTime()), entity.getImage()};
+     		dataType=new int[] { Types.VARCHAR, Types.VARCHAR,Types.VARCHAR,Types.VARCHAR,
+                    Types.VARCHAR, Types.VARCHAR,Types.VARCHAR,
+                    Types.TIMESTAMP,Types.BLOB };
+     	    
+         }else{
+         	query="update mvc_person_details set email=?,password=?,dob=?,tob=?, country=?,isHAppy=?,ethinicity=?, image=?  where UID=?";
+     		data= new Object[]{entity.getEmail(), entity.getPassword(), 
+            		entity.getDob(), entity.getTob(), entity.getCountry(), 
+            		entity.getEthinicity(), entity.getIsHappy(), entity.getImage(),entity.getUID()};
+     		
+    		dataType=new int[] { Types.VARCHAR, Types.VARCHAR,Types.VARCHAR,Types.VARCHAR,
+                    Types.VARCHAR, Types.VARCHAR,Types.VARCHAR,Types.BLOB,Types.VARCHAR };
+         }
         
-        LobHandler lobHandler = new DefaultLobHandler();
-        SqlLobValue sqlLobValue=new SqlLobValue(entity.getImage(),lobHandler);
-        //Types from java.sql Package
-        int[] dataType=new int[] { Types.VARCHAR, Types.VARCHAR,Types.VARCHAR,Types.VARCHAR,
-                        Types.VARCHAR, Types.VARCHAR,Types.VARCHAR,
-                        Types.TIMESTAMP,Types.BLOB };
-        
-        Object data[] = new Object[]{entity.getEmail(), entity.getPassword(), 
-        		entity.getDob(), entity.getTob(), entity.getCountry(), 
-        		entity.getEthinicity(), entity.getIsHappy(), 
-        		new Timestamp(new Date().getTime()), entity.getImage()};
-        System.out.println(entity.getEmail() +":"+ entity.getPassword() +": " + entity.getDob() +" "+ entity.getTob() + ":" +  entity.getCountry() + ":" + entity.getEthinicity() + ": "+  entity.getIsHappy() + ": " + new Timestamp(new Date().getTime()));
-
         jdbcTemplate.update(query, data, dataType);
         return "success";
     }
@@ -63,7 +74,7 @@ public class IPersonDao implements PersonsDao {
 	@Override
 	public List<PersonsDataEntity> findPersons() {
 		String query="select * from mvc_person_details";
-		List<PersonsDataEntity> fruitList=jdbcTemplate.query(query, new BeanPropertyRowMapper(PersonsDataEntity.class));
+		List<PersonsDataEntity> fruitList= (List<PersonsDataEntity>)jdbcTemplate.query(query, new BeanPropertyRowMapper(PersonsDataEntity.class));
 		return fruitList;
 	}
 
@@ -72,6 +83,21 @@ public class IPersonDao implements PersonsDao {
 		String query="select * from mvc_person_details where UID="+uId;
 		PersonsDataEntity personEntity=jdbcTemplate.queryForObject(query, new BeanPropertyRowMapper(PersonsDataEntity.class));
 		return personEntity.getImage();
+	}
+	
+	@Override
+	public String deletePersonByUID(String uId) {
+		String query="delete from mvc_person_details where UID="+uId;
+		int p=jdbcTemplate.update(query);
+//		WHERE WOULD THIS BE PRINTED???
+		return p==0 ? "Data could not be deleted":"Data is deleted successfully.";
+	}
+
+	@Override
+	public PersonsDataEntity findPersonByUID(String uId) {
+		String query="select * from mvc_person_details where UID="+uId;
+		PersonsDataEntity personsEntity=jdbcTemplate.queryForObject(query, new BeanPropertyRowMapper(PersonsDataEntity.class));
+		return personsEntity;
 	}
 	
 }

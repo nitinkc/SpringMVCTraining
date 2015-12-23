@@ -2,6 +2,7 @@ package com.flags.dao;
 
 import java.util.List;
 
+import com.flags.controller.model.PersonsFormData;
 import com.flags.dao.entity.PersonsDataEntity;
 
 /**
@@ -16,4 +17,8 @@ public interface PersonsDao {
 	List<PersonsDataEntity> findPersons();
 
 	byte[] findImageByUID(String uId);
+
+	String deletePersonByUID(String uId);
+
+	PersonsDataEntity findPersonByUID(String uId);
 }

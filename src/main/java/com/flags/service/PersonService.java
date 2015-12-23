@@ -14,4 +14,6 @@ public interface PersonService {
     public String addPerson(PersonsFormData personsFormData);
     public List<PersonsFormData> findPersons();
     public byte[] findImageByUID(String uId);
+	String deletePersonByUID(String uId);
+	PersonsFormData findPersonByUID(String uId);
 }

@@ -68,9 +68,10 @@ Project : Done as a part of the Training given at SynergisticIT
             <fieldset>
                 <!-- Form Name -->
                 <legend class="text-primary"> Enter Persons Details</legend>
-
                 <!-- Text input-->
                 <div class="form-group">
+                				<nitin:input type="hidden" path="UID"/>
+                
                     <label class="col-md-4 control-label" for="textinput">Login
                         Name</label>
                     <div class="col-md-4">

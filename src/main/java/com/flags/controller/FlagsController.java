@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 
 import com.flags.service.CountryNameReverseService;
@@ -42,20 +43,6 @@ public class FlagsController {
 		System.out.println("@@@@@ CONTROLLER INSTANTIATED @@@@@@@@@");
 	}
 
-	@RequestMapping(value = "uploadPersonData.do", method = RequestMethod.GET)
-	public String getPersonPage(Model model) {
-		PersonsFormData pd = new PersonsFormData();
-		model.addAttribute("cform", pd);
-		return "inputPerson";
-	}
-
-	@RequestMapping(value = "persons.do", method = RequestMethod.GET)
-	public String showFruits(Model model) {
-		List<PersonsFormData> personForms = personService.findPersons();
-		model.addAttribute("personForms", personForms);
-		return "persons";
-	}
-
 	@RequestMapping(value = "findImageByUID.do", method = RequestMethod.GET)
 	public void findImageByUID(HttpServletRequest req,
 			HttpServletResponse response) {
@@ -72,31 +59,72 @@ public class FlagsController {
 			System.out.println("Cought Exception!!");
 		}
 	}
+	
+
+	@RequestMapping(value="editPersonByUID.do", method=RequestMethod.GET)
+	public String editPersonByUID(@RequestParam("uId") String uId,Model model) {
+		System.out.println(uId);
+		PersonsFormData result=personService.findPersonByUID(uId);
+		System.out.println("Result get UID : " + result.getUID());
+		model.addAttribute("cform", result);
+		return "inputPerson";
+	}
+	
+	@RequestMapping(value="deletePersonByUID.do",method=RequestMethod.GET)
+	public String deletePersonByUID(@RequestParam("uId") String uId,Model model) {
+		String result = personService.deletePersonByUID(uId);
+		List<PersonsFormData>  personsForms = personService.findPersons();
+		
+		// This result is the result returning from the deletePersonByUID from the IPersonDao
+		System.out.println("@@@@@ CAME HERE @@@@@@    "+ result);
+		model.addAttribute("result", result);
+		
+		model.addAttribute("personsForms", personsForms);
+		return "persons";
+	}
+	
+	@RequestMapping(value = "persons.do", method = RequestMethod.GET)
+	public String showFruits(Model model) {
+		List<PersonsFormData> personForms = personService.findPersons();
+		model.addAttribute("personForms", personForms);
+		return "persons";
+	}
+	
+	@RequestMapping(value = "uploadPersonData.do", method = RequestMethod.GET)
+	public String getPersonPage(Model model) {
+		PersonsFormData pd = new PersonsFormData();
+		model.addAttribute("cform", pd);
+		return "inputPerson";
+	}
 
 	// Upload persson data is the action name from the form
 	@RequestMapping(value = "uploadPersonData.do", method = RequestMethod.POST)
-	public String uploadPersonsData(
-			@ModelAttribute("cform") PersonsFormData pfd, Model model) {
-		// cform from jsp and creating an obj of personsFormData
-		/*
-		 * String email = request.getParameter("email"); String password =
-		 * request.getParameter("password"); String dob =
-		 * request.getParameter("dob"); String tob =
-		 * request.getParameter("tob"); String country =
-		 * request.getParameter("country"); String ethnicity =
-		 * request.getParameter("ethnicity"); String isHappy =
-		 * request.getParameter("isHappy");
-		 */
-
-		// PersonsFormData pfd = new PersonsFormData(email, password, dob, tob,
-		// country, ethnicity, isHappy);
-
+	public String uploadPersonsData(@ModelAttribute("cform") PersonsFormData pfd, Model model) {
 		// Spring Form Passing all the data
 		personService.addPerson(pfd);
 		//Check where this message goes
 		model.addAttribute("message", "Success!!!");
+		
+		if(pfd.getUID()!=0){
+			return "redirect:/persons.do";
+		}
 		// Call the personAddSuccess.jsp
+		//give view name with out extension.
 		return "personAddSuccess";
+		
+		// cform from jsp and creating an obj of personsFormData
+				/*
+				 * String email = request.getParameter("email"); String password =
+				 * request.getParameter("password"); String dob =
+				 * request.getParameter("dob"); String tob =
+				 * request.getParameter("tob"); String country =
+				 * request.getParameter("country"); String ethnicity =
+				 * request.getParameter("ethnicity"); String isHappy =
+				 * request.getParameter("isHappy");
+				 */
+
+				// PersonsFormData pfd = new PersonsFormData(email, password, dob, tob,
+				// country, ethnicity, isHappy);
 	}
 
 	// Maps the forms Action to this method in Model (In Spring = "Controller")

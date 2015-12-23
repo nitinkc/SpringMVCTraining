@@ -10,6 +10,7 @@ import java.sql.Date;
 public class PersonsFormData {
 
     /* UID and TimeStamp to be generated from the database */
+	private int UID;
     private String email;
     private String password;
     private String dob;
@@ -107,5 +108,13 @@ public class PersonsFormData {
 
 	public void setImage(byte[] image) {
 		this.image = image;
+	}
+
+	public int getUID() {
+		return UID;
+	}
+
+	public void setUID(int uID) {
+		UID = uID;
 	}  
 }

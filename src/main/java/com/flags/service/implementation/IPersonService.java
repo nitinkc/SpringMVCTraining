@@ -25,9 +25,7 @@ public class IPersonService implements PersonService {
     @Autowired
     @Qualifier("IPersonDao")
     private PersonsDao personsDao;
-    
-    private JdbcTemplate jdbcTemplate;
-    
+        
     @Override
     public String addPerson(PersonsFormData personsFormData) {
         PersonsDataEntity entity = new PersonsDataEntity();
@@ -44,6 +42,7 @@ public class IPersonService implements PersonService {
 		List<PersonsDataEntity> personsEntities=personsDao.findPersons();
 		for(PersonsDataEntity pde:personsEntities){
 			PersonsFormData form=new PersonsFormData();
+			//System.out.println("@@@@@@@CAME HERE@@@@@@@@@  "+pde.getUID());
 			  BeanUtils.copyProperties(pde, form);
 			  personsFormList.add(form);
 		}
@@ -54,4 +53,17 @@ public class IPersonService implements PersonService {
     public byte[] findImageByUID(String uId) {
 		return personsDao.findImageByUID(uId);
     }
+    
+    @Override
+	  public String deletePersonByUID(String uId) {
+		  return personsDao.deletePersonByUID(uId);
+	  }
+	  
+	  @Override
+	  public PersonsFormData findPersonByUID(String uId) {
+		  PersonsDataEntity entity=personsDao.findPersonByUID(uId);
+		  PersonsFormData personsForm = new PersonsFormData();
+		  BeanUtils.copyProperties(entity, personsForm);
+		  return personsForm;
+	  }
 }
