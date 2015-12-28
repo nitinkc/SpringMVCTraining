@@ -113,7 +113,7 @@ public class IPersonDao implements PersonsDao {
 	@Override
 	public byte[] findImageByUID(String uId) {
 		String query = "select * from mvc_person_details where UID=" + uId;
-		PersonsDataEntity personEntity = jdbcTemplate.queryForObject(query,
+		PersonsDataEntity personEntity = (PersonsDataEntity)jdbcTemplate.queryForObject(query,
 				new BeanPropertyRowMapper(PersonsDataEntity.class));
 		return personEntity.getImage();
 	}
@@ -131,7 +131,7 @@ public class IPersonDao implements PersonsDao {
 	//returns only one row, thus no list is returned
 	public PersonsDataEntity findPersonByUID(String uId) {
 		String query = "select * from mvc_person_details where UID=" + uId;
-		PersonsDataEntity personsEntity = jdbcTemplate.queryForObject(query,
+		PersonsDataEntity personsEntity = (PersonsDataEntity)jdbcTemplate.queryForObject(query,
 				new BeanPropertyRowMapper(PersonsDataEntity.class));
 		return personsEntity;
 	}
