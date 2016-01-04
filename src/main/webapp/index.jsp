@@ -1,5 +1,9 @@
-<html>
+<%-- The below Line sets the MIME Type of the page as plabe rendering --%>
+<%--<%@page contentType="text/plain; charset=ISO-8859-1" %>--%>
 
+<%@page contentType="text/html; charset=ISO-8859-1" %>
+
+<html>
 <head>
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
