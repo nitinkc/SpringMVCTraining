@@ -28,7 +28,7 @@
     <!-- This is end url mapping -->
 	<servlet-mapping>
 		<servlet-name>flags</servlet-name>
-		<url-pattern>*.do</url-pattern>
+		<url-pattern>/restapp/*</url-pattern>
 	</servlet-mapping>
 	
 	<!-- Here we are configuring the front model -->
