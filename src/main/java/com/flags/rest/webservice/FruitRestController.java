@@ -2,8 +2,10 @@ package com.flags.rest.webservice;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created by Nitin C on 1/3/2016.
@@ -17,7 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class FruitRestController {
 
     @RequestMapping(value = "testMessage", method = RequestMethod.GET)
-    public String message(){
+    //This this make the "return" return the String as the text to the response!!
+   @ResponseBody public String message(){
         return "TEST_SUCCESSFULLY";
     }
 }
