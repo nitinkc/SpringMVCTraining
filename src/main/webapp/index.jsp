@@ -67,6 +67,10 @@
                 Making a Basic Rest Call.
                 <a class="btn" href="restapp/testMessage">See message from Rest Service »</a>
             </p>
+            <p>
+                Persons All From Resource URI
+                <a class="btn" href="restapp/persons/all">persons/all »</a>
+            </p>
         </div>
         <div class="col-md-4">
             <h2>

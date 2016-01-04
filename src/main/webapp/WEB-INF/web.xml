@@ -25,7 +25,13 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
-    <!-- This is end url mapping -->
+    <!-- This is end url mapping for service based URL's -->
+	<servlet-mapping>
+		<servlet-name>flags</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+
+	<!-- This is end url mapping for resource based URI's -->
 	<servlet-mapping>
 		<servlet-name>flags</servlet-name>
 		<url-pattern>/restapp/*</url-pattern>
