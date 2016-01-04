@@ -5,6 +5,7 @@ import com.flags.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,10 +30,14 @@ public class PersonRestController {
     @Qualifier("IPersonService")
     protected PersonService personService;
 
-    @RequestMapping(value = "persons/all", method = RequestMethod.GET)
+    //Narrowing the Resource
+    @RequestMapping(value = "persons/all", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody public PersonsList showPersons(Model model) {
         // For XML
         PersonsList personsList = new PersonsList();
+
+        // List of Java Objects cannot be converted into JSON
+        // Solution is the use of Wrapper Class
         List<PersonsFormData> personForms = personService.findPersons();
         personsList.setPersonsFormData(personForms);
         return personsList;
