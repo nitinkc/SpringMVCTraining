@@ -31,8 +31,10 @@ public class PersonRestController {
 
     @RequestMapping(value = "persons/all", method = RequestMethod.GET)
     @ResponseBody public List<PersonsFormData> showPersons(Model model) {
+        // For XML
+        PersonsList personsList = new PersonsList();
         List<PersonsFormData> personForms = personService.findPersons();
-        model.addAttribute("personForms", personForms);
+        personsList.setPersonsFormData(personForms);
         return personForms;
     }
     @RequestMapping(value = "testMessage", method = RequestMethod.GET)
