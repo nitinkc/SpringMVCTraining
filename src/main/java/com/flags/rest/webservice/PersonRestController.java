@@ -30,12 +30,12 @@ public class PersonRestController {
     protected PersonService personService;
 
     @RequestMapping(value = "persons/all", method = RequestMethod.GET)
-    @ResponseBody public List<PersonsFormData> showPersons(Model model) {
+    @ResponseBody public PersonsList showPersons(Model model) {
         // For XML
         PersonsList personsList = new PersonsList();
         List<PersonsFormData> personForms = personService.findPersons();
         personsList.setPersonsFormData(personForms);
-        return personForms;
+        return personsList;
     }
     @RequestMapping(value = "testMessage", method = RequestMethod.GET)
     //This this make the "return" return the String as the text to the response!!
