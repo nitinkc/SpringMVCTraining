@@ -10,7 +10,7 @@ public class PersonDataPaginationForm {
     private int currentPage;
     private int noOfRecords;
     private List<PersonsFormData> personsFormDataList;
-    private int recordsPerPage = 5;
+    private int recordsPerPage = 7;
     private int noOfPages;
 
     public void initPagination(){

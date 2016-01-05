@@ -126,7 +126,7 @@ public class FlagsController {
 
 	@RequestMapping(value = "personsPagination.do", method = RequestMethod.GET)
 	public String showPersonInPagination(@RequestParam(value="page",required=false)String page,Model model){
-		int recordsPerPage=3;
+		int recordsPerPage=7;
 		int currentPage=0;
 		if(page==null) {
 			currentPage=1;
@@ -138,7 +138,6 @@ public class FlagsController {
 		personDataPaginationForm.setCurrentPage(currentPage);
 		personDataPaginationForm.initPagination();
 		model.addAttribute("personDataPaginationForm", personDataPaginationForm);
-
 		return "personsWithPagination";
 	}
 

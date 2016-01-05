@@ -63,13 +63,11 @@ public class IPersonService implements PersonService {
 	}
     
     @Override
-    public PersonDataPaginationForm findPersonsWithPagination(int start,
-															  int noOfRecords){
+    public PersonDataPaginationForm findPersonsWithPagination(int start, int noOfRecords){
 
 		PersonDataPaginationEntity personDataPaginationEntity = personsDao.findPersonsWithPagination(start, noOfRecords);
 		PersonDataPaginationForm personDataPaginationForm = new PersonDataPaginationForm() ;
-		BeanUtils.copyProperties(personDataPaginationForm, personDataPaginationForm);
-
+		BeanUtils.copyProperties(personDataPaginationEntity, personDataPaginationForm);
 
     	List<PersonsFormData> personsFormList=new ArrayList<PersonsFormData>();
 		List<PersonsDataEntity> personsEntities=personDataPaginationEntity.getPersonList();

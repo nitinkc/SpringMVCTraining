@@ -97,6 +97,8 @@ public class IPersonDao implements PersonsDao {
 		 * this row count, include a SQL_CALC_FOUND_ROWS option in the SELECT
 		 * statement, and then invoke FOUND_ROWS() afterward:
 		 */
+		System.out.println("###################### DEBUG: IPersonDao############### ");
+		System.out.println(noOfRecords);
 		String query = "select SQL_CALC_FOUND_ROWS * from mvc_person_details limit "
 				+ start + ", " + noOfRecords;
 
@@ -110,6 +112,7 @@ public class IPersonDao implements PersonsDao {
 		int tNoOfRecords = jdbcTemplate.queryForInt("select FOUND_ROWS()");
 		/* query a total number of rows from database. */
 		personDataPaginationEntity.setNoOfRecords(tNoOfRecords);
+		System.out.println(tNoOfRecords);
 		personDataPaginationEntity.setPersonList(personsDataEntityList);
 
 		return personDataPaginationEntity;
