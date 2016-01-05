@@ -3,7 +3,6 @@ package com.flags.dao.entity;
 import java.util.List;
 
 public class PersonDataPaginationEntity {
-	//
 
 	private int noOfRecords;
 	private List<PersonsDataEntity> personList;

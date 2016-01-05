@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
 import com.flags.controller.model.PersonsFormData;
+import com.flags.dao.entity.PersonDataPaginationEntity;
 import com.flags.dao.entity.PersonsDataEntity;
 import com.flags.dao.PersonsDao;
 
@@ -86,8 +87,8 @@ public class IPersonDao implements PersonsDao {
 	}
 
 	// Offset = , noOf Records = Total records in the database
-	public List<PersonsDataEntity> findPersonsWithPagination(int start,
-			int noOfRecords) {
+	@Override
+	public PersonDataPaginationEntity findPersonsWithPagination(int start, int noOfRecords) {
 		/*
 		 * A SELECT statement may include a LIMIT clause to restrict the number
 		 * of rows the server returns to the client. In some cases, it is
@@ -99,15 +100,19 @@ public class IPersonDao implements PersonsDao {
 		String query = "select SQL_CALC_FOUND_ROWS * from mvc_person_details limit "
 				+ start + ", " + noOfRecords;
 
-		List<PersonsDataEntity> personList = (List<PersonsDataEntity>) jdbcTemplate
-				.query(query,
-						new BeanPropertyRowMapper(PersonsDataEntity.class));
+		List<PersonsDataEntity> personsDataEntityList = (List<PersonsDataEntity>) jdbcTemplate
+				.query(query, new BeanPropertyRowMapper(PersonsDataEntity.class));
 
 		// To obtain this row count, include a SQL_CALC_FOUND_ROWS option in the
 		// SELECT statement, and then invoke FOUND_ROWS() afterward
-		this.noOfRecords = jdbcTemplate.queryForInt("select FOUND_ROWS()");
+
+		PersonDataPaginationEntity personDataPaginationEntity = new PersonDataPaginationEntity();
+		int tNoOfRecords = jdbcTemplate.queryForInt("select FOUND_ROWS()");
 		/* query a total number of rows from database. */
-		return personList;
+		personDataPaginationEntity.setNoOfRecords(tNoOfRecords);
+		personDataPaginationEntity.setPersonList(personsDataEntityList);
+
+		return personDataPaginationEntity;
 	}
 
 	@Override

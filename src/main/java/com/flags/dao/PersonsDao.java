@@ -3,6 +3,7 @@ package com.flags.dao;
 import java.util.List;
 
 import com.flags.controller.model.PersonsFormData;
+import com.flags.dao.entity.PersonDataPaginationEntity;
 import com.flags.dao.entity.PersonsDataEntity;
 
 /**
@@ -13,19 +14,13 @@ import com.flags.dao.entity.PersonsDataEntity;
 
 public interface PersonsDao {
 	public String addPerson(PersonsDataEntity entity);
-
 	List<PersonsDataEntity> findPersons();
-
 	byte[] findImageByUID(String uId);
-
 	String deletePersonByUID(String uId);
-
 	PersonsDataEntity findPersonByUID(String uId);
 	
 	List<PersonsDataEntity> findData(String columnName, String searchString);
-	List<PersonsDataEntity> findPersonsWithPagination(int offset, int noOfRecords);
+	PersonDataPaginationEntity findPersonsWithPagination(int offset, int noOfRecords);
 	
 	int getNoOfRecords();
-
-
 }

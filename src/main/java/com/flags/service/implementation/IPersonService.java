@@ -1,6 +1,8 @@
 package com.flags.service.implementation;
 
+import com.flags.controller.model.PersonDataPaginationForm;
 import com.flags.dao.PersonsDao;
+import com.flags.dao.entity.PersonDataPaginationEntity;
 import com.flags.dao.entity.PersonsDataEntity;
 import com.flags.controller.model.PersonsFormData;
 import com.flags.service.PersonService;
@@ -61,16 +63,24 @@ public class IPersonService implements PersonService {
 	}
     
     @Override
-    public List<PersonsFormData> findPersonsWithPagination(int start,
-			int noOfRecords){
+    public PersonDataPaginationForm findPersonsWithPagination(int start,
+															  int noOfRecords){
+
+		PersonDataPaginationEntity personDataPaginationEntity = personsDao.findPersonsWithPagination(start, noOfRecords);
+		PersonDataPaginationForm personDataPaginationForm = new PersonDataPaginationForm() ;
+		BeanUtils.copyProperties(personDataPaginationForm, personDataPaginationForm);
+
+
     	List<PersonsFormData> personsFormList=new ArrayList<PersonsFormData>();
-		List<PersonsDataEntity> personsEntities=personsDao.findPersonsWithPagination(start, noOfRecords);
+		List<PersonsDataEntity> personsEntities=personDataPaginationEntity.getPersonList();
+
 		for(PersonsDataEntity pde:personsEntities){
 			PersonsFormData form=new PersonsFormData();
-			  BeanUtils.copyProperties(pde, form);
+			BeanUtils.copyProperties(pde, form);
 			  personsFormList.add(form);
 		}
-		return personsFormList;
+		personDataPaginationForm.setPersonsFormDataList(personsFormList);
+		return personDataPaginationForm;
     }
     
     public int getNoOfRecords(){

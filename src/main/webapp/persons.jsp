@@ -103,37 +103,6 @@
 				</pre:forEach>
 			</tbody>
 		</table>
-
-		<!-- Printing the Records information -->
-		Page ${currentPage} Of ${noOfPages} Pages with Total Of ${noOfRecords} Records <br>
-		
-		<%--For displaying Previous link except for the 1st page --%>
-		<pre:if test="${currentPage != 1}">
-			<td><a href="personsPagination.do?page=${currentPage - 1}">Previous</a></td>
-		</pre:if>
-		&nbsp;&nbsp; | &nbsp;&nbsp;
-		<pre:if test="${currentPage lt noOfPages}">
-			<td><a href="personsPagination.do?page=${currentPage + 1}">Next</a></td>
-		</pre:if>
-
-<%--For displaying Page numbers. The when condition does not display a link for the current page--%>
-		<table class="table table-bordered" border="1" cellpadding="5" cellspacing="5">
-			<tr>
-				<pre:forEach begin="1" end="${noOfPages}" var="i">
-					<pre:choose>
-						<pre:when test="${currentPage eq i}">
-							<td>${i}</td>
-						</pre:when>
-						<pre:otherwise>
-							<td><a href="personsPagination.do?page=${i}">${i}</a></td>
-						</pre:otherwise>
-					</pre:choose>
-				</pre:forEach>
-			</tr>
-			<%--For displaying Next link --%>
-		
-		</table>		
-		
 	</div>
 </body>
 </html>

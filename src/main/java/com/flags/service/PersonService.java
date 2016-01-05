@@ -1,5 +1,6 @@
 package com.flags.service;
 
+import com.flags.controller.model.PersonDataPaginationForm;
 import com.flags.controller.model.PersonsFormData;
 import com.flags.dao.entity.PersonsDataEntity;
 
@@ -19,7 +20,6 @@ public interface PersonService {
 	PersonsFormData findPersonByUID(String uId);
 	// SERVICES HAS FORM DATA (Both in List)
 	List<PersonsFormData> findData(String columnName, String searchString);
-	List<PersonsFormData> findPersonsWithPagination(int offset, int noOfRecords);
-	
-	public int getNoOfRecords();
+	PersonDataPaginationForm findPersonsWithPagination(int offset, int noOfRecords);
+	//public int getNoOfRecords();
 }
