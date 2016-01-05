@@ -127,7 +127,7 @@ public class FlagsController {
 	public String showPersonInPagination(HttpServletRequest request,
 			HttpServletResponse response,Model model){
 		int page = 1;
-        int recordsPerPage = 3;
+        int recordsPerPage = 5;
         if(request.getParameter("page") != null)
             page = Integer.parseInt(request.getParameter("page"));
 		List<PersonsFormData> personForms = personService.

@@ -1,7 +1,7 @@
-<%-- The below Line sets the MIME Type of the page as plabe rendering --%>
+<%-- The below Line sets the MIME Type of the page as plane rendering --%>
 <%--<%@page contentType="text/plain; charset=ISO-8859-1" %>--%>
 
-<%@page contentType="text/html; charset=ISO-8859-1" %>
+<%@ page contentType="text/html; charset=ISO-8859-1" %>
 
 <html>
 <head>
@@ -98,6 +98,6 @@
                 <a class="btn" href="#">View details »</a>
             </p>
         </div>
-    </div
+    </div>
 </body>
 </html>

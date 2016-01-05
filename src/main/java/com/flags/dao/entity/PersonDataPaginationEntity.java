@@ -7,6 +7,7 @@ public class PersonDataPaginationEntity {
 
 	private int noOfRecords;
 	private List<PersonsDataEntity> personList;
+	
 
 	public int getNoOfRecords() {
 		return noOfRecords;
@@ -23,11 +24,10 @@ public class PersonDataPaginationEntity {
 	public void setPersonList(List<PersonsDataEntity> personList) {
 		this.personList = personList;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "PersonDataPaginationEntity [noOfRecords=" + noOfRecords
 				+ ", personList=" + personList + "]";
 	}
-
 }
