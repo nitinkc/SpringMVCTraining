@@ -24,14 +24,6 @@
     <!-- Custom styles for this Project -->
     <link href="css/myStyle.css" rel="stylesheet" type="text/css">
 
-    <!--  border style Example css -->
-    <style type="text/css">
-        .bs-example {
-            margin: 20px;
-            /*border: double;*/
-        }
-    </style>
-
 </head>
 <body>
 
