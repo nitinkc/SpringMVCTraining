@@ -141,6 +141,22 @@ public class FlagsController {
 		return "personsWithPagination";
 	}
 
+	@RequestMapping(value = "personsPaginationWithAJAX.do", method = RequestMethod.GET)
+	public String showPersonInPaginationWithAjax(@RequestParam(value="page",required=false)String page,Model model){
+		int recordsPerPage=5;
+		int currentPage=0;
+		if(page==null) {
+			currentPage=1;
+		}else{
+			currentPage=Integer.parseInt(page);
+		}
+
+		PersonDataPaginationForm personDataPaginationForm = personService.findPersonsWithPagination((currentPage-1)*recordsPerPage, recordsPerPage);
+		personDataPaginationForm.setCurrentPage(currentPage);
+		personDataPaginationForm.initPagination();
+		model.addAttribute("personDataPaginationForm", personDataPaginationForm);
+		return "personsWithPaginationAJAX";
+	}
 	@RequestMapping(value = "uploadPersonData.do", method = RequestMethod.GET)
 	public String getPersonPage(Model model) {
 		PersonsFormData pd = new PersonsFormData();
