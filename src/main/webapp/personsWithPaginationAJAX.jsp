@@ -5,49 +5,94 @@
   Time: 5:28 PM
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="pre" %>
 
 <html>
 <head>
-    <title> Pagination </title>
+    <title> Pagination Using AJAX </title>
 
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
-    <script
-            src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script
-            src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
     <!-- Custom styles for this Project -->
     <link href="css/myStyle.css" rel="stylesheet" type="text/css">
 
+    <script type="text/javascript">
+        var contextPath = "${pageContext.request.contextPath}";
+
+        $(document).ready(function () {
+            console.log(contextPath);
+
+            $.getJSON(contextPath+"/restapp/personsPagination.do",{}, function (jsonResponse) {
+                alert("Nitin")
+                console.log(jsonResponse);
+            });
+
+            /* Setting up the previous button */
+            $("#previous").click(function () {
+                /* Picking up the page number */
+                var page = $("#previous").attr("pageNo");
+            });//End Previous Click
+
+            /* Setting up the next button */
+            $("#next").click(function () {
+                /* Picking up the page number */
+                var nPage = $("#next").attr("pageNo");
+                console.log(nPage);
+
+                /* Now the AJAX call is made and the response is taken as JSON */
+                $.getJSON(contextPath+"/restapp/personsPagination.do", {page: nPage}, function (jsonResponse) {
+                    var tableContent = "";
+                    var count = 0;
+                    alert("Nitin")
+                    console.log(jsonResponse);
+
+
+                    if (!jQuery.isEmptyObject(jsonResponse)) {
+                        var itemResponse = jsonResponse["fruitFormList"];
+                        jQuery.each(itemResponse, function (i, item) {
+                            //alert(item);
+                            tableContent = tableContent + "<tr><td>" + (i + 1) + "</td><td>" + item["name"] + "</td><td>" + item["price"] + "</td><td>" + item["taste"] + "</td><td>" + item["quantity"] + "</td><td>" + item["pcity"] + "</td><td> <img src=\"findImageById.do?fid=" + item["sno"] + "\" height=\"40px;\" id=\"imageLoader\"></td>";
+                            tableContent = tableContent + "<td><a href=\"editFruitByFid.do?fid=" + item["sno"] + "\"><img src=\"img/edit.png\" /></a> &nbsp;&nbsp;<a href=\"javascript:deleteFruitByFid(" + item["sno"] + ");\"><img src=\"img/delete.png\"/></a></td></tr>";
+                        });
+                        //${fruitPaginationForm.currentPage lt fruitPaginationForm.noOfPages}
+                        var currentPage = jsonResponse["currentPage"];
+                        var noOfPages = jsonResponse["noOfPages"];
+                        var recordsPerPage = jsonResponse["recordsPerPage"];
+                        if (currentPage < noOfPages) {
+                            $("#next").attr("pageNo", currentPage + 1);
+                        } else {
+                            $("#next").hide();
+                        }
+                        var startItem = (currentPage - 1) * recordsPerPage + 1;
+                        var totalNoRecordsof = "of " + jsonResponse["noOfRecords"];
+                        var endRecord = 0;
+                        //
+                        if (((currentPage - 1) * recordsPerPage + recordsPerPage) > totalNoRecordsof) {
+                            endRecord = jsonResponse["noOfRecords"];
+                        } else {
+                            endRecord = (currentPage - 1) * recordsPerPage + recordsPerPage;
+                        }
+                        var paginationHeader = startItem + " - " + endRecord + " " + totalNoRecordsof;
+                        $("#paginationHeader").html(paginationHeader);
+
+                    } else {
+                        alert("Sorry data could not be rerieved!!!!!!!");
+                    }
+                    $("#tbodyContent").html(tableContent);
+                });// End of Get JSON
+            });// End of Click NExt
+        });//End Document Ready
+
+    </script>
 </head>
+
 <body>
 
-
-<div class="loading-div"><img src="img/edit.png"></div>
-<div id="results"><!-- content will be loaded here -->
-    $(document).ready(function() {
-    $("#results" ).load( "fetch_pages.php"); //load initial records
-
-    //executes code below when user click on pagination links
-    $("#results").on( "click", ".pagination a", function (e){
-    e.preventDefault();
-    $(".loading-div").show(); //show loading element
-    var page = $(this).attr("data-page"); //get page number from link
-    $("#results").load("fetch_pages.php",{"page":page}, function(){ //get content from PHP page
-    $(".loading-div").hide(); //once done, hide loading element
-    });
-
-    });
-    });
-
-</div>
-
-<%--
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
@@ -64,6 +109,7 @@
                     </ul>
                 </div>
             </nav>
+
             <div class="bs-example" align="center">
                 <table class="table table-striped" class="table-responsive" style="width: 80%">
                     <thead>
@@ -80,8 +126,8 @@
                         <th>Image</th>
                     </tr>
                     </thead>
-                    <tbody>
 
+                    <tbody id="table-body-content">
                     <pre:forEach items="${personDataPaginationForm.personsFormDataList}" var="item" varStatus="sno">
                         <tr>
                             <td>${sno.count}</td>
@@ -105,12 +151,12 @@
                     </pre:forEach>
                     </tbody>
                 </table>
-
             </div>
         </div>
     </div>
 
 
+    <%-- Printing the Data of the Total number of Records--%>
     <div class="row">
         <div class="col-md-12">
             <div class=well align="center">
@@ -119,33 +165,31 @@
                     ${personDataPaginationForm.currentPage} Of ${personDataPaginationForm.noOfPages} Pages,
                     Showing ${personDataPaginationForm.noOfRecords} Records
                 </p>
-                &lt;%&ndash;Page ${currentPage} Of ${noOfPages} Pages with Total Of ${noOfRecords} Records <br>&ndash;%&gt;
+                <%--Page ${currentPage} Of ${noOfPages} Pages with Total Of ${noOfRecords} Records <br>--%>
             </div>
         </div>
     </div>
 
-
+    <%-- Showing the two buttons for navigating next or Previous--%>
     <div class="row">
         <div class="col-md-12">
             <div class=class="pagination" align="center">
-                &lt;%&ndash;For displaying Previous link except for the 1st page &ndash;%&gt;
+                <%--For displaying Previous link except for the 1st page--%>
                 <pre:if test="${personDataPaginationForm.currentPage != 1}">
                     <td>
-                        <a href="${pageContext.request.contextPath}/personsPagination.do?page=${personDataPaginationForm.currentPage - 1}">Previous</a>
+                        <a href="#" id="previous" pageNo="${personDataPaginationForm.currentPage - 1}">Previous</a>
                     </td>
                 </pre:if>
                 &nbsp;&nbsp; | &nbsp;&nbsp;
                 <pre:if test="${personDataPaginationForm.currentPage lt personDataPaginationForm.noOfPages}">
                     <td>
-                        <a href="${pageContext.request.contextPath}/personsPagination.do?page=${personDataPaginationForm.currentPage + 1}">Next</a>
+                        <a href="#" id="next" pageNo="${personDataPaginationForm.currentPage + 1}">Next</a>
                     </td>
                 </pre:if>
             </div>
         </div>
     </div>
---%>
 
-<hr>
 </div>
 </body>
 </html>

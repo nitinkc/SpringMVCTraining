@@ -143,7 +143,7 @@ public class FlagsController {
 
 	@RequestMapping(value = "personsPaginationWithAJAX.do", method = RequestMethod.GET)
 	public String showPersonInPaginationWithAjax(@RequestParam(value="page",required=false)String page,Model model){
-		int recordsPerPage=5;
+		int recordsPerPage=3;
 		int currentPage=0;
 		if(page==null) {
 			currentPage=1;
