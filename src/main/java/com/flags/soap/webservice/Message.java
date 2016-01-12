@@ -1,6 +1,7 @@
 package com.flags.soap.webservice;
 
-public class Welcome {
+public class Message {
+	
 	private String mCode;
 	private String message;
 	
@@ -20,4 +21,5 @@ public class Welcome {
 	public String toString() {
 		return "Welcome [mCode=" + mCode + ", message=" + message + "]";
 	}
+
 }
