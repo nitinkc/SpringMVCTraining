@@ -5,7 +5,38 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="WebApp_ID" version="2.5">
 	
-	<!-- Keeping all the beans aout in its separate xml files and referencing them through context-params -->
+	
+	<!-- 
+	Defining web service container which reads /WEB-INF/sun-jaxws.xml
+	and publish all the web service registered inside this.	-->
+	<!-- 
+ this listener reads - /WEB-INF/sun-jaxws.xml file and publish all the registered websevice
+ inside soap web service container
+ -->
+ 
+	<listener>
+        <listener-class>
+                com.sun.xml.ws.transport.http.servlet.WSServletContextListener
+        </listener-class>
+	</listener>
+	
+	
+	<servlet>
+        <servlet-name>common</servlet-name>
+        <servlet-class>
+          com.sun.xml.ws.transport.http.servlet.WSServlet
+        </servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+	<servlet-mapping>
+		<servlet-name>common</servlet-name>
+		<url-pattern>/helloWorld</url-pattern>
+	</servlet-mapping>
+	
+	
+	<!-- Keeping all the beans out in its separate xml files and referencing 
+		them through context-params -->
 	<context-param>
 	 	<param-name>contextConfigLocation</param-name>
 	 	<param-value>/WEB-INF/context/my-appln-root-context.xml</param-value>

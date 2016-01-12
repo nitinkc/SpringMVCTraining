@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fruits  xmlns="http://www.soap.com/fruits"   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.soap.com/fruits fruits.xsd">
+        <fruit>
+                <fid>828</fid>
+                <name>Papaya</name>
+                <color>Papaya</color>
+                <taste>Sweet</taste>
+                <price>143</price>
+                <pcity>Papaya</pcity>
+                <quantity>100</quantity>
+          </fruit>
+            <fruit>
+                <fid>828</fid>
+                <name>Papaya</name>
+                <color>Papaya</color>
+                <taste>Sweet</taste>
+                <price>143</price>
+                <pcity>Papaya</pcity>
+                <quantity>20</quantity>
+       </fruit>
+</fruits>

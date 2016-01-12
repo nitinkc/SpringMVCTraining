@@ -76,7 +76,7 @@
         </div>
         <div class="col-md-4">
             <h2>
-                Heading
+                Remaining Rest...
             </h2>
             <p>
 
@@ -87,13 +87,13 @@
         </div>
         <div class="col-md-4">
             <h2>
-                Heading
+                SOAP
             </h2>
             <p>
-
+            	<a class="btn" href="#">View details »</a>
             </p>
             <p>
-                <a class="btn" href="#">View details »</a>
+                
             </p>
         </div>
     </div>
