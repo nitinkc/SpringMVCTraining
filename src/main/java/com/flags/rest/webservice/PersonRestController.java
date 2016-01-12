@@ -1,7 +1,9 @@
 package com.flags.rest.webservice;
 
+import com.flags.controller.model.PersonDataPaginationForm;
 import com.flags.controller.model.PersonsFormData;
 import com.flags.service.PersonService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
@@ -11,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -47,4 +50,22 @@ public class PersonRestController {
    @ResponseBody public String message(){
         return "TEST_SUCCESSFULLY";
     }
+    
+    @RequestMapping(value = "personsPaginationWithAJAX", method = RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
+	@ResponseBody public PersonDataPaginationForm showPersonInPaginationWithAjax(@RequestParam(value="page",required=false)String page,Model model){
+		int recordsPerPage=3;
+		int currentPage=0;
+		if(page==null) {
+			currentPage=1;
+		}else{
+			currentPage=Integer.parseInt(page);
+		}
+
+		System.out.println(currentPage);
+
+		PersonDataPaginationForm personDataPaginationForm = personService.findPersonsWithPagination((currentPage-1)*recordsPerPage, recordsPerPage);
+		personDataPaginationForm.setCurrentPage(currentPage);
+		personDataPaginationForm.initPagination();
+		return personDataPaginationForm;
+	}
 }

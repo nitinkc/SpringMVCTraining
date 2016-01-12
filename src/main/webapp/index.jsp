@@ -43,18 +43,17 @@
                 <p>
                     <a href="personsPagination.do"> See Details with Pagination (JSP + Servlets) </a>
                 </p>
-                <p>
-                    <a href="personsPaginationWithAJAX.do"> See Details with Pagination (Using AJAX with jQuery) </a>
+                <p> <!-- restapp/personsPaginationWithAJAX -->
+                    <!-- <a href="personsWithPaginationAJAX.jsp"> See Details with Pagination (Using AJAX with jQuery) </a> -->
+                    <a href="paginationAjaxFirstPage.do"> See Details with Pagination (Using AJAX with jQuery) </a>
                 </p>
                 <hr>
-
             </div>
         </div>
     </div>
 </div>
 
 
-</div>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">

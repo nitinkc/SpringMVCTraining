@@ -60,6 +60,33 @@ public class IPersonDao implements PersonsDao {
 			dataType = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR,
 					Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR,
 					Types.TIMESTAMP, Types.BLOB };
+			
+			jdbcTemplate.update(query, data, dataType);
+			
+			/*############## Redundant copy to test Transactions ##############*/
+			query = "insert into mvc_person_details(email, password,dob,tob,country,ethinicity,isHappy,entryDate,image) values(?,?,?,?,?,?,?,?,?)";
+			data = new Object[] { entity.getEmail(), entity.getPassword(),
+					entity.getDob(), entity.getTob(), entity.getCountry(),
+					entity.getEthinicity(), entity.getIsHappy(),
+					new Timestamp(new Date().getTime()), entity.getImage() };
+			dataType = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR,
+					Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR,
+					Types.TIMESTAMP, Types.BLOB };
+			
+			jdbcTemplate.update(query, data, dataType);
+			
+			query = "insert into mvc_person_details(email, password,dob,tob,country,ethinicity,isHappy,entryDate,image) values(?,?,?,?,?,?,?,?,?)";
+			data = new Object[] { entity.getEmail(), entity.getPassword(),
+					entity.getDob(), entity.getTob(), entity.getCountry(),
+					entity.getEthinicity(), entity.getIsHappy(),
+					new Timestamp(new Date().getTime()), entity.getImage() };
+			dataType = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR,
+					Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR,
+					Types.TIMESTAMP, Types.BLOB };
+			
+			jdbcTemplate.update(query, data, dataType);
+			
+			/* ***************************************************************/
 
 		} else {
 			query = "update mvc_person_details set email=?,password=?,dob=?,tob=?, country=?,isHAppy=?,ethinicity=?, image=?  where UID=?";
@@ -71,9 +98,11 @@ public class IPersonDao implements PersonsDao {
 			dataType = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR,
 					Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR,
 					Types.BLOB, Types.VARCHAR };
+			
+			jdbcTemplate.update(query, data, dataType);
 		}
 
-		jdbcTemplate.update(query, data, dataType);
+		
 		return "success";
 	}
 
@@ -97,8 +126,6 @@ public class IPersonDao implements PersonsDao {
 		 * this row count, include a SQL_CALC_FOUND_ROWS option in the SELECT
 		 * statement, and then invoke FOUND_ROWS() afterward:
 		 */
-		System.out.println("###################### DEBUG: IPersonDao############### ");
-		System.out.println(noOfRecords);
 		String query = "select SQL_CALC_FOUND_ROWS * from mvc_person_details limit "
 				+ start + ", " + noOfRecords;
 
