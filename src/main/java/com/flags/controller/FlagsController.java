@@ -32,7 +32,7 @@ public class FlagsController {
 	 * If you create Listener with the help of ContextLoader Listener, whatever
 	 * bean is managed by ContainerLoader Listener can be autowired here
 	 */
-	@Autowired()
+	@Autowired
 	@Qualifier("reverseNameService")
 	private CountryNameReverseService cnrs;
 

@@ -34,7 +34,6 @@
 		<url-pattern>/helloWorld</url-pattern>
 	</servlet-mapping>
 	
-	
 	<!-- Keeping all the beans out in its separate xml files and referencing 
 		them through context-params -->
 	<context-param>
