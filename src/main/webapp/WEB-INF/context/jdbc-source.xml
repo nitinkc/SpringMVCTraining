@@ -14,8 +14,18 @@
 	
 	
 	<!-- here this is doing jndi lookup for datasource and assigning it to 
-	spring container -->
+	spring container (WORKS FOR TOMCAT)-->
 	<!-- id="personDataSource" is used in the IPersonDao -->
-	<jee:jndi-lookup id="personDataSource" jndi-name="jdbc/persons_db"/>
+	<!-- <jee:jndi-lookup id="personDataSource" jndi-name="jdbc/persons_db"/> -->
+	
+	<bean id="personDataSource"
+			class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+			scope="singleton">
+			<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+			<property name="url" value="jdbc:mysql://localhost:3306/synergistic"/>
+			<property name="username" value="root"></property>
+			<property name="password" value="root"></property>
+	
+	</bean>
 	
 	</beans>

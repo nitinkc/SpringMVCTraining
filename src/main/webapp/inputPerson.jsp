@@ -129,7 +129,7 @@ Project : Done as a part of the Training given at SynergisticIT
 					<div class="form-group">
 						<label class="col-md-4 control-label"> Select Ethnicity </label>
 						<div class="col-md-4">
-							<nitin:select id="selectbasic" path="ethnicity"
+							<select id="selectbasic" name="ethnicity"
 								class="form-control">
 								<option value="American Indian or Alaska Native">American
 									Indian or Alaska Native</option>
@@ -139,7 +139,7 @@ Project : Done as a part of the Training given at SynergisticIT
 								<option value="Native Hawaiian or Other Pacific Islander">Native
 									Hawaiian or Other Pacific Islander</option>
 								<option value="White">White</option>
-							</nitin:select>
+							</select>
 						</div>
 					</div>
 
@@ -148,15 +148,13 @@ Project : Done as a part of the Training given at SynergisticIT
 						<label class="col-md-4 control-label"> Happy to be Here? </label>
 						<div class="col-md-4">
 							<div class="radio">
-								<label for="radios-0"> <nitin:input type="radio"
-										path="isHappy" id="radios-0" value="Yes" checked="checked"> YES
-                                </nitin:input>
+								<label for="radios-0"> <input type="radio"
+										name="isHappy" id="radios-0" value="Yes" checked="checked"/> YES
 								</label>
 							</div>
 							<div class="radio">
-								<label for="radios-1"> <nitin:input type="radio"
-										path="isHappy" id="radios-1" value="No"> NO
-                                                          </nitin:input>
+								<label for="radios-1"> <input type="radio"
+										name="isHappy" id="radios-1" value="No"/> NO
 								</label>
 							</div>
 						</div>

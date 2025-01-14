@@ -5,7 +5,7 @@
     will be registered inside JNDI with name jdbc/synergy-bank-ds. Using this JNDI name we can access data source thorughout app
        -->
        
-           <!-- Specify a JDBC datasource -->
+           <!-- Specify a JDBC datasource for Apache-->
 <Context  relodable="true">
     <Resource name="jdbc/persons_db" auth="Container"
         type="javax.sql.DataSource" username="root" password="root"
