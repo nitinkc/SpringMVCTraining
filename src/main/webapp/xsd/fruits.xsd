@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.soap.com/fruits"
+	xmlns:tns="http://www.soap.com/fruits" elementFormDefault="qualified">
+	
+	<!-- global elements -->
+	<element name="fruits"   type="tns:ffruits"/>
+	
+	<complexType name="ffruits">
+	    <sequence>
+	    	<element name="fruit"  type="tns:dfruit"  minOccurs="1" maxOccurs="unbounded"/>
+	    </sequence>
+	</complexType>
+	
+	<complexType name="dfruit">
+	      <sequence>
+				       <element name="fid" type="int" minOccurs="1" maxOccurs="1"/>
+	      				<element name="name" type="string" minOccurs="1" maxOccurs="1"/>
+	      				<element name="color" type="string" minOccurs="1" maxOccurs="1"/>
+	      				<element name="taste" type="string" minOccurs="1" maxOccurs="1"/>
+	      				<element name="price" type="int" minOccurs="1" maxOccurs="1"/>
+	      				<element name="pcity" type="string" minOccurs="1" maxOccurs="1"/>
+	      				<element name="quantity" type="int" minOccurs="1" maxOccurs="1"/>
+	      				<element name="image" type="base64Binary" minOccurs="0" maxOccurs="1"/>
+	      </sequence>
+	</complexType>
+	
+</schema>

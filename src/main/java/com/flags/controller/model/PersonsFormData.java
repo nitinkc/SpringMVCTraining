@@ -1,5 +1,6 @@
 package com.flags.controller.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.sql.Time;
 import java.sql.Date;
 
@@ -7,6 +8,9 @@ import java.sql.Date;
  * 
  * Created by Nitin C on 12/17/2015.
  */
+
+// Done in order to have the XML Response on the Postman
+@XmlRootElement
 public class PersonsFormData {
 
     /* UID and TimeStamp to be generated from the database */

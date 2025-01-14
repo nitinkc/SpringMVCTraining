@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Persons Database  -->
-<!-- Specify a JDBC datasource
-    tells tomcat we have to create a conn pool as per below settings. JNDI runs with tomcat and this datasource
-    will be registered inside JNDI with name jdbc/synergy-bank-ds. Using this JNDI name we can access data source thorughout app
-       -->
+
+<!-- Specify a JDBC datasource tells tomcat we have to create a conn pool as per below settings.
+     JNDI runs with tomcat and this datasource will be registered inside JNDI with name jdbc/synergy-bank-ds.
+     Using this JNDI name we can access data source thorughout app
+-->
        
-           <!-- Specify a JDBC datasource for Apache-->
+<!-- Specify a JDBC datasource -->
+
 <Context  relodable="true">
     <Resource name="jdbc/persons_db" auth="Container"
         type="javax.sql.DataSource" username="root" password="root"
@@ -13,4 +15,5 @@
         url="jdbc:mysql://localhost:3306/synergistic"
         maxActive="100" maxIdle="30"/>
 </Context>
+
 <!-- Total number of db connections allowed -->

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:fruits xmlns:tns="http://www.soap.com/fruits"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.soap.com/fruits fruits.xsd ">
+  <tns:fruit>
+    <tns:fid>0</tns:fid>
+    <tns:name>tns:name</tns:name>
+    <tns:color>tns:color</tns:color>
+    <tns:taste>tns:taste</tns:taste>
+    <tns:price>0</tns:price>
+    <tns:pcity>tns:pcity</tns:pcity>
+    <tns:quantity>0</tns:quantity>
+  </tns:fruit>
+</tns:fruits>

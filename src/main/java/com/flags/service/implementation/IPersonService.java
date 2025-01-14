@@ -3,9 +3,7 @@ package com.flags.service.implementation;
 import com.flags.dao.PersonsDao;
 import com.flags.dao.entity.PersonsDataEntity;
 import com.flags.controller.model.PersonsFormData;
-import com.flags.service.PersonJMSService;
 import com.flags.service.PersonService;
-import com.person.vo.PersonVO;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,91 +22,77 @@ import java.util.List;
 @Service("IPersonService")
 public class IPersonService implements PersonService {
 
-	@Autowired
-	@Qualifier("IPersonDao")
-	private PersonsDao personsDao;
+    @Autowired
+    @Qualifier("IPersonDao")
+    private PersonsDao personsDao;
+        
+    @Override
+    public String addPerson(PersonsFormData personsFormData) {
+        PersonsDataEntity entity = new PersonsDataEntity();
 
-	@Autowired
-	@Qualifier("IPersonJMSService")
-	private PersonJMSService personJMSService;
+        // Copying the data from the form into the entity that interacts with the DB
+        BeanUtils.copyProperties(personsFormData, entity);
+        String result = personsDao.addPerson(entity);
+        return result;
+    }
 
-	@Override
-	public String addPerson(PersonsFormData personsFormData) {
-		// //////JMS//////////
-		System.out.println("Persisting Data VIA the JMS Queue");
-		PersonVO personVO = new PersonVO();
-		BeanUtils.copyProperties(personsFormData, personVO);
-		personJMSService.addPerson(personVO);
-		// ////////////////////////////
-
-		System.out.println("Persisting Data into Database Directly");
-		PersonsDataEntity entity = new PersonsDataEntity();
-		// Copying the data from the form into the entity that interacts with
-		// the DB
-		BeanUtils.copyProperties(personsFormData, entity);
-		String result = personsDao.addPerson(entity);
-		return result;
-	}
-
-	@Override
-	public List<PersonsFormData> findPersons() {
-		List<PersonsFormData> personsFormList = new ArrayList<PersonsFormData>();
-		List<PersonsDataEntity> personsEntities = personsDao.findPersons();
-		for (PersonsDataEntity pde : personsEntities) {
-			PersonsFormData form = new PersonsFormData();
-			BeanUtils.copyProperties(pde, form);
-			personsFormList.add(form);
+    @Override
+    public List<PersonsFormData> findPersons() {
+    	List<PersonsFormData> personsFormList=new ArrayList<PersonsFormData>();
+		List<PersonsDataEntity> personsEntities=personsDao.findPersons();
+		for(PersonsDataEntity pde:personsEntities){
+			PersonsFormData form=new PersonsFormData();
+			  BeanUtils.copyProperties(pde, form);
+			  personsFormList.add(form);
 		}
 		return personsFormList;
-	}
-
-	@Override
+    }
+    
+    @Override
 	public List<PersonsFormData> findData(String columnName, String searchString) {
-		List<PersonsFormData> personsFormList = new ArrayList<PersonsFormData>();
-		List<PersonsDataEntity> personsEntities = personsDao.findData(
-				columnName, searchString);
-		for (PersonsDataEntity pde : personsEntities) {
-			PersonsFormData form = new PersonsFormData();
-			BeanUtils.copyProperties(pde, form);
-			personsFormList.add(form);
+		List<PersonsFormData> personsFormList=new ArrayList<PersonsFormData>();
+		List<PersonsDataEntity> personsEntities=personsDao.findData(columnName, searchString);
+		for(PersonsDataEntity pde:personsEntities){
+			PersonsFormData form=new PersonsFormData();
+			  BeanUtils.copyProperties(pde, form);
+			  personsFormList.add(form);
 		}
 		return personsFormList;
 	}
-
-	@Override
-	public List<PersonsFormData> findPersonsWithPagination(int start,
-			int noOfRecords) {
-		List<PersonsFormData> personsFormList = new ArrayList<PersonsFormData>();
-		List<PersonsDataEntity> personsEntities = personsDao
-				.findPersonsWithPagination(start, noOfRecords);
-		for (PersonsDataEntity pde : personsEntities) {
-			PersonsFormData form = new PersonsFormData();
-			BeanUtils.copyProperties(pde, form);
-			personsFormList.add(form);
+    
+    @Override
+    public List<PersonsFormData> findPersonsWithPagination(int start,
+			int noOfRecords){
+    	List<PersonsFormData> personsFormList=new ArrayList<PersonsFormData>();
+		List<PersonsDataEntity> personsEntities=personsDao.findPersonsWithPagination(start, noOfRecords);
+		for(PersonsDataEntity pde:personsEntities){
+			PersonsFormData form=new PersonsFormData();
+			  BeanUtils.copyProperties(pde, form);
+			  personsFormList.add(form);
 		}
 		return personsFormList;
-	}
-
-	public int getNoOfRecords() {
-		return personsDao.getNoOfRecords();
-	}
-
-	@Override
-	public byte[] findImageByUID(String uId) {
+    }
+    
+    public int getNoOfRecords(){
+    	return personsDao.getNoOfRecords();
+    }
+    
+    @Override
+    public byte[] findImageByUID(String uId) {
 		return personsDao.findImageByUID(uId);
-	}
-
-	@Override
-	public String deletePersonByUID(String uId) {
-		return personsDao.deletePersonByUID(uId);
-	}
-
-	@Override
-	public PersonsFormData findPersonByUID(String uId) {
-		PersonsDataEntity entity = personsDao.findPersonByUID(uId);
-		PersonsFormData personsForm = new PersonsFormData();
-		// copying from source to destination
-		BeanUtils.copyProperties(entity, personsForm);
-		return personsForm;
-	}
+    }
+    
+    @Override
+	  public String deletePersonByUID(String uId) {
+		  return personsDao.deletePersonByUID(uId);
+	  }
+	  
+	  @Override
+	  public PersonsFormData findPersonByUID(String uId) {
+		  PersonsDataEntity entity=personsDao.findPersonByUID(uId);
+		  PersonsFormData personsForm = new PersonsFormData();
+		  // copying from source to destination
+		  BeanUtils.copyProperties(entity, personsForm);
+		  return personsForm;
+	  }
 }

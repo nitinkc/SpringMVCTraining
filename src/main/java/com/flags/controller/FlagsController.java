@@ -7,6 +7,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.flags.controller.model.PersonDataPaginationForm;
 import com.flags.controller.model.PersonsFormData;
 import com.flags.service.PersonService;
 
@@ -31,7 +32,7 @@ public class FlagsController {
 	 * If you create Listener with the help of ContextLoader Listener, whatever
 	 * bean is managed by ContainerLoader Listener can be autowired here
 	 */
-	@Autowired()
+	@Autowired
 	@Qualifier("reverseNameService")
 	private CountryNameReverseService cnrs;
 
@@ -42,7 +43,7 @@ public class FlagsController {
 	public FlagsController() {
 		System.out.println("@@@@@ CONTROLLER INSTANTIATED @@@@@@@@@");
 	}
-	
+
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		// to actually be able to convert Multi-part instance to byte[]
@@ -51,26 +52,26 @@ public class FlagsController {
 				new ByteArrayMultipartFileEditor());
 		// now Spring knows how to handle multi-part object and convert them
 	}
-	
+
 	/**
 	 * REQUEST MAPPINGS
 	 */
-	
+
 	@RequestMapping(value = "searchDb.do", method = RequestMethod.POST)
 	public String searchDb(HttpServletRequest req,
-			Model model){
+						   Model model){
 		//The searchString here is the name from the jsp page
 		String searchString = req.getParameter("searchString");
 		String columnName = req.getParameter("column");
-		
-		System.out.println("Column name is: " + columnName + 
+
+		System.out.println("Column name is: " + columnName +
 				" && searchString is " + searchString  );
-		
+
 		List<PersonsFormData> personsFormData = personService.findData(columnName, searchString);
 		System.out.println("###### DEBUG ####### ");
 		for(PersonsFormData pfd : personsFormData){
 			System.out.println(pfd.getDob());
-			
+
 		}
 		model.addAttribute("personForms",personsFormData);
 		return "persons";
@@ -78,7 +79,7 @@ public class FlagsController {
 
 	@RequestMapping(value = "findImageByUID.do", method = RequestMethod.GET)
 	public void findImageByUID(HttpServletRequest req,
-			HttpServletResponse response) {
+							   HttpServletResponse response) {
 		String uId = req.getParameter("uId");
 		System.out.println(uId);
 		byte[] image = personService.findImageByUID(uId);
@@ -93,7 +94,7 @@ public class FlagsController {
 			System.out.println("Cought Exception!!");
 		}
 	}
-	
+
 	@RequestMapping(value="editPersonByUID.do", method=RequestMethod.GET)
 	public String editPersonByUID(@RequestParam("uId") String uId,Model model) {
 		System.out.println(uId);
@@ -102,47 +103,59 @@ public class FlagsController {
 		model.addAttribute("cform", result);
 		return "inputPerson";
 	}
-	
+
 	@RequestMapping(value="deletePersonByUID.do",method=RequestMethod.GET)
 	public String deletePersonByUID(@RequestParam("uId") String uId,Model model) {
 		String result = personService.deletePersonByUID(uId);
 		List<PersonsFormData>  personsForms = personService.findPersons();
-		
+
 		// This result is the result returning from the deletePersonByUID from the IPersonDao
 		System.out.println("DEBUG: From DeletePersonwithUID@@@@@ CAME HERE @@@@@@    "+ result);
 		//model.addAttribute("result", result);
-		
+
 		model.addAttribute("personForms", personsForms);
 		return "persons";
 	}
-	
+
 	@RequestMapping(value = "persons.do", method = RequestMethod.GET)
 	public String showPersons(Model model) {
 		List<PersonsFormData> personForms = personService.findPersons();
 		model.addAttribute("personForms", personForms);
 		return "persons";
 	}
-	
+
 	@RequestMapping(value = "personsPagination.do", method = RequestMethod.GET)
-	public String showPersonInPagination(HttpServletRequest request,
-			HttpServletResponse response,Model model){
-		int page = 1;
-        int recordsPerPage = 5;
-        if(request.getParameter("page") != null)
-            page = Integer.parseInt(request.getParameter("page"));
-		List<PersonsFormData> personForms = personService.
-				findPersonsWithPagination((page-1)*recordsPerPage, recordsPerPage);
-		
-        int noOfRecords = personService.getNoOfRecords();
-        int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
-        
-        request.setAttribute("personForms", personForms);
-        request.setAttribute("noOfPages", noOfPages);
-        request.setAttribute("currentPage", page);
-        request.setAttribute("noOfRecords",personService.getNoOfRecords());
-        model.addAttribute("personForms", personForms);
-        
-        return "persons";
+	public String showPersonInPagination(@RequestParam(value="page",required=false)String page,Model model){
+		int recordsPerPage=7;
+		int currentPage=0;
+		if(page==null) {
+			currentPage=1;
+		}else{
+			currentPage=Integer.parseInt(page);
+		}
+
+		PersonDataPaginationForm personDataPaginationForm = personService.findPersonsWithPagination((currentPage-1)*recordsPerPage, recordsPerPage);
+		personDataPaginationForm.setCurrentPage(currentPage);
+		personDataPaginationForm.initPagination();
+		model.addAttribute("personDataPaginationForm", personDataPaginationForm);
+		return "personsWithPagination";
+	}
+
+	@RequestMapping(value = "paginationAjaxFirstPage.do", method = RequestMethod.GET)
+	public String showPersonInPaginationAJAX(@RequestParam(value="page",required=false)String page,Model model){
+		int recordsPerPage=3;
+		int currentPage=0;
+		if(page==null) {
+			currentPage=1;
+		}else{
+			currentPage=Integer.parseInt(page);
+		}
+
+		PersonDataPaginationForm personDataPaginationForm = personService.findPersonsWithPagination((currentPage-1)*recordsPerPage, recordsPerPage);
+		personDataPaginationForm.setCurrentPage(currentPage);
+		personDataPaginationForm.initPagination();
+		model.addAttribute("personDataPaginationForm", personDataPaginationForm);
+		return "personsWithPaginationAJAX";
 	}
 	
 	@RequestMapping(value = "uploadPersonData.do", method = RequestMethod.GET)
@@ -159,14 +172,14 @@ public class FlagsController {
 		personService.addPerson(pfd);
 		//Check where this message goes
 		model.addAttribute("message", "Success!!!");
-		
+
 		if(pfd.getUID()!=0){
 			return "redirect:/persons.do";
 		}
 		// Call the personAddSuccess.jsp
 		//give view name with out extension.
 		return "personAddSuccess";
-		
+
 		// cform from jsp and creating an obj of personsFormData
 				/*
 				 * String email = request.getParameter("email"); String password =
@@ -178,8 +191,8 @@ public class FlagsController {
 				 * request.getParameter("isHappy");
 				 */
 
-				// PersonsFormData pfd = new PersonsFormData(email, password, dob, tob,
-				// country, ethnicity, isHappy);
+		// PersonsFormData pfd = new PersonsFormData(email, password, dob, tob,
+		// country, ethnicity, isHappy);
 	}
 
 	// Maps the forms Action to this method in Model (In Spring = "Controller")
@@ -200,6 +213,6 @@ public class FlagsController {
 
 		// Dispatch the result to the same Page
 		return "searchFlag"; // View name without extension....
-								// searchedFlag.html
+		// searchedFlag.html
 	}
 }

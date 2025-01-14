@@ -9,16 +9,28 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+	
+</script>
 
-<!--  border style Example css -->
-<style type="text/css">
-.bs-example {
-	margin: 20px;
-}
-</style>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js">
+</script>
+
+<!-- Custom styles for this Project -->
+<link href="css/myStyle.css" rel="stylesheet" type="text/css">
+
+<script>
+$(document).ready(function(){
+	var row = $(".row-data").length;
+	var col = $("th").length;
+	console.log("Row = " + row + "\nColumn = " + col);
+	
+	for (i = 1; i <= col; i++) { 
+		$("td").css({"background-color": "yellow", "font-size": "200%"});
+	}
+});
+</script>
 
 </head>
 <body>
@@ -42,11 +54,8 @@
 								</select> <input type="text" class="form-control" name="searchString" />
 							</div>
 							<button type="submit" class="btn btn-default">Submit</button>
-
-
 						</form>
 					</div>
-
 				</nav>
 			</div>
 		</div>
@@ -65,7 +74,7 @@
 	<div class="bs-example">
 		<table class="table table-bordered" style="width: 80%">
 			<thead>
-				<tr>
+				<tr class="col-data">
 					<th>SNo</th>
 					<th>UID</th>
 					<th>Email</th>
@@ -81,7 +90,7 @@
 			<tbody>
 
 				<pre:forEach items="${personForms}" var="item" varStatus="sno">
-					<tr>
+					<tr class="row-data">
 						<td>${sno.count}</td>
 						<td>${item.UID}</td>
 						<td>${item.email}</td>
@@ -103,37 +112,6 @@
 				</pre:forEach>
 			</tbody>
 		</table>
-
-		<!-- Printing the Records information -->
-		Page ${currentPage} Of ${noOfPages} Pages with Total Of ${noOfRecords} Records <br>
-		
-		<%--For displaying Previous link except for the 1st page --%>
-		<pre:if test="${currentPage != 1}">
-			<td><a href="personsPagination.do?page=${currentPage - 1}">Previous</a></td>
-		</pre:if>
-		&nbsp;&nbsp; | &nbsp;&nbsp;
-		<pre:if test="${currentPage lt noOfPages}">
-			<td><a href="personsPagination.do?page=${currentPage + 1}">Next</a></td>
-		</pre:if>
-
-<%--For displaying Page numbers. The when condition does not display a link for the current page--%>
-		<table class="table table-bordered" border="1" cellpadding="5" cellspacing="5">
-			<tr>
-				<pre:forEach begin="1" end="${noOfPages}" var="i">
-					<pre:choose>
-						<pre:when test="${currentPage eq i}">
-							<td>${i}</td>
-						</pre:when>
-						<pre:otherwise>
-							<td><a href="personsPagination.do?page=${i}">${i}</a></td>
-						</pre:otherwise>
-					</pre:choose>
-				</pre:forEach>
-			</tr>
-			<%--For displaying Next link --%>
-		
-		</table>		
-		
 	</div>
 </body>
 </html>

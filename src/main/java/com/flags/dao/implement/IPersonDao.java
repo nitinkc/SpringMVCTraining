@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
 import com.flags.controller.model.PersonsFormData;
+import com.flags.dao.entity.PersonDataPaginationEntity;
 import com.flags.dao.entity.PersonsDataEntity;
 import com.flags.dao.PersonsDao;
 
@@ -59,6 +60,33 @@ public class IPersonDao implements PersonsDao {
 			dataType = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR,
 					Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR,
 					Types.TIMESTAMP, Types.BLOB };
+			
+			jdbcTemplate.update(query, data, dataType);
+			
+			/*############## Redundant copy to test Transactions ##############*/
+			query = "insert into mvc_person_details(email, password,dob,tob,country,ethinicity,isHappy,entryDate,image) values(?,?,?,?,?,?,?,?,?)";
+			data = new Object[] { entity.getEmail(), entity.getPassword(),
+					entity.getDob(), entity.getTob(), entity.getCountry(),
+					entity.getEthinicity(), entity.getIsHappy(),
+					new Timestamp(new Date().getTime()), entity.getImage() };
+			dataType = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR,
+					Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR,
+					Types.TIMESTAMP, Types.BLOB };
+			
+			jdbcTemplate.update(query, data, dataType);
+			
+			query = "insert into mvc_person_details(email, password,dob,tob,country,ethinicity,isHappy,entryDate,image) values(?,?,?,?,?,?,?,?,?)";
+			data = new Object[] { entity.getEmail(), entity.getPassword(),
+					entity.getDob(), entity.getTob(), entity.getCountry(),
+					entity.getEthinicity(), entity.getIsHappy(),
+					new Timestamp(new Date().getTime()), entity.getImage() };
+			dataType = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR,
+					Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR,
+					Types.TIMESTAMP, Types.BLOB };
+			
+			jdbcTemplate.update(query, data, dataType);
+			
+			/* ***************************************************************/
 
 		} else {
 			query = "update mvc_person_details set email=?,password=?,dob=?,tob=?, country=?,isHAppy=?,ethinicity=?, image=?  where UID=?";
@@ -70,9 +98,11 @@ public class IPersonDao implements PersonsDao {
 			dataType = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR,
 					Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR,
 					Types.BLOB, Types.VARCHAR };
+			
+			jdbcTemplate.update(query, data, dataType);
 		}
 
-		jdbcTemplate.update(query, data, dataType);
+		
 		return "success";
 	}
 
@@ -86,8 +116,8 @@ public class IPersonDao implements PersonsDao {
 	}
 
 	// Offset = , noOf Records = Total records in the database
-	public List<PersonsDataEntity> findPersonsWithPagination(int start,
-			int noOfRecords) {
+	@Override
+	public PersonDataPaginationEntity findPersonsWithPagination(int start, int noOfRecords) {
 		/*
 		 * A SELECT statement may include a LIMIT clause to restrict the number
 		 * of rows the server returns to the client. In some cases, it is
@@ -99,21 +129,26 @@ public class IPersonDao implements PersonsDao {
 		String query = "select SQL_CALC_FOUND_ROWS * from mvc_person_details limit "
 				+ start + ", " + noOfRecords;
 
-		List<PersonsDataEntity> personList = (List<PersonsDataEntity>) jdbcTemplate
-				.query(query,
-						new BeanPropertyRowMapper(PersonsDataEntity.class));
+		List<PersonsDataEntity> personsDataEntityList = (List<PersonsDataEntity>) jdbcTemplate
+				.query(query, new BeanPropertyRowMapper(PersonsDataEntity.class));
 
 		// To obtain this row count, include a SQL_CALC_FOUND_ROWS option in the
 		// SELECT statement, and then invoke FOUND_ROWS() afterward
-		this.noOfRecords = jdbcTemplate.queryForInt("select FOUND_ROWS()");
+
+		PersonDataPaginationEntity personDataPaginationEntity = new PersonDataPaginationEntity();
+		int tNoOfRecords = jdbcTemplate.queryForInt("select FOUND_ROWS()");
 		/* query a total number of rows from database. */
-		return personList;
+		personDataPaginationEntity.setNoOfRecords(tNoOfRecords);
+		System.out.println(tNoOfRecords);
+		personDataPaginationEntity.setPersonList(personsDataEntityList);
+
+		return personDataPaginationEntity;
 	}
 
 	@Override
 	public byte[] findImageByUID(String uId) {
 		String query = "select * from mvc_person_details where UID=" + uId;
-		PersonsDataEntity personEntity = jdbcTemplate.queryForObject(query,
+		PersonsDataEntity personEntity = (PersonsDataEntity)jdbcTemplate.queryForObject(query,
 				new BeanPropertyRowMapper(PersonsDataEntity.class));
 		return personEntity.getImage();
 	}
@@ -131,7 +166,7 @@ public class IPersonDao implements PersonsDao {
 	//returns only one row, thus no list is returned
 	public PersonsDataEntity findPersonByUID(String uId) {
 		String query = "select * from mvc_person_details where UID=" + uId;
-		PersonsDataEntity personsEntity = jdbcTemplate.queryForObject(query,
+		PersonsDataEntity personsEntity = (PersonsDataEntity)jdbcTemplate.queryForObject(query,
 				new BeanPropertyRowMapper(PersonsDataEntity.class));
 		return personsEntity;
 	}
